@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "879257673788",
+    "project_id": "testcompanion-8cbc9",
+    "storage_bucket": "testcompanion-8cbc9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:879257673788:android:b76a227690c5a4d131a339",
+        "android_client_info": {
+          "package_name": "com.example.testcompanion"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAA6gve5431MyuCn5UnwPMtt4syhn1D2cA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
