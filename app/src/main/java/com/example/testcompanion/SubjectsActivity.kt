@@ -45,6 +45,18 @@ class SubjectsActivity : AppCompatActivity() {
         binding.subjectsRecyclerView.layoutManager = layoutManager
         val adapter = SubjectsAdapter(subjectsName,subjectsImageList,this)
         binding.subjectsRecyclerView.adapter = adapter
+        binding.btnPrepare.setOnClickListener {
+            binding.btnPrepare.background = getDrawable(R.drawable.selected_switch_btn_design)
+            binding.btnTest.background = null
+            binding.tvModePrepare.setTextColor(resources.getColor(R.color.white))
+            binding.tvModeTest.setTextColor(resources.getColor(R.color.lite_black))
+        }
+        binding.btnTest.setOnClickListener {
+            binding.btnTest.background = getDrawable(R.drawable.selected_switch_btn_design)
+            binding.btnPrepare.background = null
+            binding.tvModePrepare.setTextColor(resources.getColor(R.color.lite_black))
+            binding.tvModeTest.setTextColor(resources.getColor(R.color.white))
+        }
 
     }
 

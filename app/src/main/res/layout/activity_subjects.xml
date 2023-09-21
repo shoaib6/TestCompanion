@@ -60,32 +60,36 @@
         android:layout_marginTop="@dimen/_15sdp">
 
         <LinearLayout
+            android:id="@+id/btnPrepare"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:layout_weight="1"
-            android:gravity="center">
+            android:gravity="center"
+            android:background="@drawable/selected_switch_btn_design">
 
             <TextView
+                android:id="@+id/tv_modePrepare"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Prepare"/>
+                android:text="Prepare"
+                android:textColor="@color/white"/>
 
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnTest"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:gravity="center"
-            android:layout_weight="1"
-            android:background="@drawable/selected_switch_btn_design">
+            android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tv_modeTest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Test"
-                android:textColor="@color/white"/>
+                android:text="Test"/>
 
         </LinearLayout>
 
