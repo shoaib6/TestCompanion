@@ -15,8 +15,7 @@ class SubjectsActivity : AppCompatActivity() {
         binding = ActivitySubjectsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        val selectedCategoryName = intent.getStringExtra("categoryName")
-        binding.selectedCourseName.text = selectedCategoryName
+        binding.selectedCourseName.text = Constant.Category
         val subjectsName = ArrayList<String>()
         val subjectsImageList = ArrayList<Int>()
         subjectsImageList.add(R.drawable.general_knowledge_icon)
@@ -57,10 +56,14 @@ class SubjectsActivity : AppCompatActivity() {
             binding.tvModePrepare.setTextColor(resources.getColor(R.color.lite_black))
             binding.tvModeTest.setTextColor(resources.getColor(R.color.white))
         }
+        binding.btnBack.setOnClickListener {
+            finish()
+        }
 
     }
 
     fun goToQuizActivity(){
+        Constant.flag = false
         val intent = Intent(this,QuizActivity::class.java)
         startActivity(intent)
     }

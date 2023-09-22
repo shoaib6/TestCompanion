@@ -51,8 +51,8 @@ class CategoriesFragment : Fragment() {
     }
 
     fun goToTestActivity(categoryName: String) {
+        Constant.Category = categoryName
         val intent = Intent(requireContext(),SubjectsActivity::class.java)
-        intent.putExtra("categoryName",categoryName)
         startActivity(intent)
     }
 

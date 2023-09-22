@@ -9,4 +9,6 @@
     <color name="clipboard_color">#F5F5F5</color>
     <color name="selected_button_color">#9087E5</color>
     <color name="lite_black">#49454F</color>
+    <color name="red">#FF5353</color>
+    <color name="green">#4CB050</color>
 </resources>

@@ -2,6 +2,7 @@ package com.example.testcompanion
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -13,13 +14,14 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var binding: ActivityQuizBinding
     private lateinit var quizAdapter: QuizAdapter
     private val quizQuestions = ArrayList<QuizQuestion>()
+    private var currentItemPosition = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        quizAdapter = QuizAdapter(quizQuestions)
+        quizAdapter = QuizAdapter(quizQuestions,this)
         binding.viewPager.adapter = quizAdapter
         loadQuizQuestions()
         binding.viewPager.isUserInputEnabled = false
@@ -30,7 +32,24 @@ class QuizActivity : AppCompatActivity() {
             }
         })
         binding.btnNext.setOnClickListener {
-            binding.viewPager.setCurrentItem(1,true)
+            val nextItemPosition = currentItemPosition + 1
+            if (nextItemPosition < quizAdapter.itemCount) {
+                binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
+                currentItemPosition = nextItemPosition
+            }
+            Constant.flag = false
+            if (currentItemPosition>=1){
+                binding.btnBack.visibility = View.VISIBLE
+            }
+        }
+        binding.btnBack.setOnClickListener {
+            val nextItemPosition = currentItemPosition - 1
+            binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
+            currentItemPosition = nextItemPosition
+            if (currentItemPosition==0){
+                binding.btnBack.visibility = View.GONE
+            }
+
         }
 
     }

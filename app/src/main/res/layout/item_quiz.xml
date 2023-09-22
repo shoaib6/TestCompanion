@@ -16,40 +16,40 @@
 
 
         <TextView
-            android:id="@+id/tv_options1"
+            android:id="@+id/tv_option1"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_50sdp"
-            android:background="@drawable/options_item_design"
+            android:background="@drawable/unselected_option_design"
             android:text="Option 1"
             android:gravity="center_vertical"
             android:paddingStart="@dimen/_12sdp"
             android:layout_marginTop="@dimen/_25sdp"/>
 
     <TextView
-        android:id="@+id/tv_options2"
+        android:id="@+id/tv_option2"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:background="@drawable/options_item_design"
+        android:background="@drawable/unselected_option_design"
         android:text="Option 2"
         android:gravity="center_vertical"
         android:layout_marginTop="@dimen/_14sdp"
         android:paddingStart="@dimen/_12sdp"/>
 
     <TextView
-        android:id="@+id/tv_options3"
+        android:id="@+id/tv_option3"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:background="@drawable/options_item_design"
+        android:background="@drawable/unselected_option_design"
         android:text="Option 3"
         android:gravity="center_vertical"
         android:layout_marginTop="@dimen/_14sdp"
         android:paddingStart="@dimen/_12sdp"/>
 
     <TextView
-        android:id="@+id/tv_options4"
+        android:id="@+id/tv_option4"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:background="@drawable/options_item_design"
+        android:background="@drawable/unselected_option_design"
         android:text="Option 4"
         android:gravity="center_vertical"
         android:layout_marginTop="@dimen/_14sdp"
