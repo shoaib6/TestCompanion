@@ -11,4 +11,6 @@
     <color name="lite_black">#49454F</color>
     <color name="red">#FF5353</color>
     <color name="green">#4CB050</color>
+    <color name="lite_green">#C8E6CA</color>
+    <color name="lite_red">#FFCDD2</color>
 </resources>

@@ -29,6 +29,7 @@ class QuizActivity : AppCompatActivity() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
                 binding.tvQuestionNo.text = (position+1).toString()
+                Constant.universalIndex = position
             }
         })
         binding.btnNext.setOnClickListener {
@@ -49,6 +50,8 @@ class QuizActivity : AppCompatActivity() {
             if (currentItemPosition==0){
                 binding.btnBack.visibility = View.GONE
             }
+            Constant.goingBack = true
+            quizAdapter.notifyItemChanged(Constant.universalIndex)
 
         }
 
