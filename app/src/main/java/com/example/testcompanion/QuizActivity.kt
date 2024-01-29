@@ -57,6 +57,18 @@ class QuizActivity : AppCompatActivity() {
 
     }
 
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Constant.PrepareMode = false
+        Constant.QuizMode = false
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Constant.PrepareMode = false
+        Constant.QuizMode = false
+    }
+
     private fun loadQuizQuestions() {
         val fireStore = FirebaseFirestore.getInstance()
         val quizCollection = fireStore.collection("GAT").document("GAT").collection("Computer Science") // Replace with your collection name

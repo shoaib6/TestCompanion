@@ -46,15 +46,19 @@ class SubjectsActivity : AppCompatActivity() {
         binding.subjectsRecyclerView.adapter = adapter
         binding.btnPrepare.setOnClickListener {
             binding.btnPrepare.background = getDrawable(R.drawable.selected_switch_btn_design)
-            binding.btnTest.background = null
+            binding.btnQuiz.background = null
             binding.tvModePrepare.setTextColor(resources.getColor(R.color.white))
             binding.tvModeTest.setTextColor(resources.getColor(R.color.lite_black))
+            Constant.PrepareMode = true
+            Constant.QuizMode = false
         }
-        binding.btnTest.setOnClickListener {
-            binding.btnTest.background = getDrawable(R.drawable.selected_switch_btn_design)
+        binding.btnQuiz.setOnClickListener {
+            binding.btnQuiz.background = getDrawable(R.drawable.selected_switch_btn_design)
             binding.btnPrepare.background = null
             binding.tvModePrepare.setTextColor(resources.getColor(R.color.lite_black))
             binding.tvModeTest.setTextColor(resources.getColor(R.color.white))
+            Constant.QuizMode = true
+            Constant.PrepareMode = false
         }
         binding.btnBack.setOnClickListener {
             finish()

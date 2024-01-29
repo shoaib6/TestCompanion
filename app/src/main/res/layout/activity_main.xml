@@ -85,119 +85,119 @@
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:background="@drawable/layout_background_design">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:paddingHorizontal="@dimen/_20sdp"
-                android:layout_marginTop="@dimen/_20sdp">
+<!--            <LinearLayout-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:orientation="horizontal"-->
+<!--                android:paddingHorizontal="@dimen/_20sdp"-->
+<!--                android:layout_marginTop="@dimen/_20sdp">-->
 
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center_horizontal">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Categories"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold"
-                        android:textColor="@color/dark_purple"/>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Categories"-->
+<!--                        android:textSize="@dimen/_12ssp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/dark_purple"/>-->
 
-                    <View
-                        android:layout_width="@dimen/_3sdp"
-                        android:layout_height="@dimen/_3sdp"
-                        android:background="@drawable/dot_design"
-                        android:layout_marginTop="@dimen/_5sdp"/>
+<!--                    <View-->
+<!--                        android:layout_width="@dimen/_3sdp"-->
+<!--                        android:layout_height="@dimen/_3sdp"-->
+<!--                        android:background="@drawable/dot_design"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"/>
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_weight="1"/>-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center_horizontal">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Papers"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold"
-                        android:textColor="@color/dark_purple"/>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Papers"-->
+<!--                        android:textSize="@dimen/_12ssp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/dark_purple"/>-->
 
-                    <View
-                        android:layout_width="@dimen/_3sdp"
-                        android:layout_height="@dimen/_3sdp"
-                        android:background="@drawable/dot_design"
-                        android:layout_marginTop="@dimen/_5sdp"/>
+<!--                    <View-->
+<!--                        android:layout_width="@dimen/_3sdp"-->
+<!--                        android:layout_height="@dimen/_3sdp"-->
+<!--                        android:background="@drawable/dot_design"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"/>
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_weight="1"/>-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center_horizontal">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Jobs"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold"
-                        android:textColor="@color/dark_purple"/>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Jobs"-->
+<!--                        android:textSize="@dimen/_12ssp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/dark_purple"/>-->
 
-                    <View
-                        android:layout_width="@dimen/_3sdp"
-                        android:layout_height="@dimen/_3sdp"
-                        android:background="@drawable/dot_design"
-                        android:layout_marginTop="@dimen/_5sdp"/>
+<!--                    <View-->
+<!--                        android:layout_width="@dimen/_3sdp"-->
+<!--                        android:layout_height="@dimen/_3sdp"-->
+<!--                        android:background="@drawable/dot_design"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="1dp"
-                    android:layout_weight="1"/>
+<!--                <View-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="1dp"-->
+<!--                    android:layout_weight="1"/>-->
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center_horizontal">
+<!--                <LinearLayout-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:orientation="vertical"-->
+<!--                    android:gravity="center_horizontal">-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Favourites"
-                        android:textSize="@dimen/_12ssp"
-                        android:textStyle="bold"
-                        android:textColor="@color/dark_purple"/>
+<!--                    <TextView-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="Favourites"-->
+<!--                        android:textSize="@dimen/_12ssp"-->
+<!--                        android:textStyle="bold"-->
+<!--                        android:textColor="@color/dark_purple"/>-->
 
-                    <View
-                        android:layout_width="@dimen/_3sdp"
-                        android:layout_height="@dimen/_3sdp"
-                        android:background="@drawable/dot_design"
-                        android:layout_marginTop="@dimen/_5sdp"/>
+<!--                    <View-->
+<!--                        android:layout_width="@dimen/_3sdp"-->
+<!--                        android:layout_height="@dimen/_3sdp"-->
+<!--                        android:background="@drawable/dot_design"-->
+<!--                        android:layout_marginTop="@dimen/_5sdp"/>-->
 
-                </LinearLayout>
+<!--                </LinearLayout>-->
 
-            </LinearLayout>
+<!--            </LinearLayout>-->
 
             <FrameLayout
                 android:id="@+id/fragmentContainer"

@@ -79,7 +79,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btnTest"
+            android:id="@+id/btnQuiz"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:orientation="horizontal"
@@ -90,7 +90,7 @@
                 android:id="@+id/tv_modeTest"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Test"/>
+                android:text="Quiz"/>
 
         </LinearLayout>
 
