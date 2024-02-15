@@ -3,6 +3,7 @@ package com.example.testcompanion
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
@@ -20,16 +21,17 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        loadQuizQuestions()
         quizAdapter = QuizAdapter(quizQuestions,this)
         binding.viewPager.adapter = quizAdapter
-        loadQuizQuestions()
+
         binding.viewPager.isUserInputEnabled = false
         binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
             override fun onPageSelected(position: Int) {
                 super.onPageSelected(position)
-                binding.tvQuestionNo.text = (position+1).toString()
                 Constant.universalIndex = position
+                binding.tvQuestionNo.text = (position+1).toString()
+                Toast.makeText(applicationContext,"Page Scrolled${Constant.universalIndex}", Toast.LENGTH_SHORT).show()
             }
         })
         binding.btnNext.setOnClickListener {
@@ -42,6 +44,7 @@ class QuizActivity : AppCompatActivity() {
             if (currentItemPosition>=1){
                 binding.btnBack.visibility = View.VISIBLE
             }
+            quizAdapter.notifyItemChanged(Constant.universalIndex)
         }
         binding.btnBack.setOnClickListener {
             val nextItemPosition = currentItemPosition - 1
@@ -55,18 +58,6 @@ class QuizActivity : AppCompatActivity() {
 
         }
 
-    }
-
-    override fun onBackPressed() {
-        super.onBackPressed()
-        Constant.PrepareMode = false
-        Constant.QuizMode = false
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Constant.PrepareMode = false
-        Constant.QuizMode = false
     }
 
     private fun loadQuizQuestions() {
@@ -95,6 +86,12 @@ class QuizActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 // Handle errors here
             }
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        Constant.selectedOptions.clear()
+        Constant.universalIndex = 0
     }
 
 }

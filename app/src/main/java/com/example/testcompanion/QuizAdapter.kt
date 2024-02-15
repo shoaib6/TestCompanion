@@ -34,6 +34,26 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
         }
     }
 
+    private fun prepareModeActive(holder: ViewHolder){
+        holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+        holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+        holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+        holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+        if(quizQuestions[Constant.universalIndex].answer.toInt()==1){
+            Toast.makeText(quizActivity.applicationContext,"Question No: ${Constant.universalIndex} Answer 1", Toast.LENGTH_SHORT).show()
+            holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+        }else if(quizQuestions[Constant.universalIndex].answer.toInt()==2){
+            Toast.makeText(quizActivity.applicationContext,"Question No: ${Constant.universalIndex} Answer 2", Toast.LENGTH_SHORT).show()
+            holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+        }else if(quizQuestions[Constant.universalIndex].answer.toInt()==3){
+            Toast.makeText(quizActivity.applicationContext,"Question No: ${Constant.universalIndex} Answer 3", Toast.LENGTH_SHORT).show()
+            holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+        }else{
+            Toast.makeText(quizActivity.applicationContext,"Question No: ${Constant.universalIndex} Answer 4", Toast.LENGTH_SHORT).show()
+            holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+        }
+    }
+
     private fun showCorrectAndWrongAnswer(holder: ViewHolder, correctAnswer: Int, selectedAnswer: Int) {
         if (correctAnswer==1){
             holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
@@ -79,76 +99,84 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
         holder.tvOption3.text = "3. ${quizQuestion.options[2]}"
         holder.tvOption4.text = "4. ${quizQuestion.options[3]}"
 
-        if (Constant.goingBack){
-            if (question.answer.toInt()==Constant.selectedOptions[Constant.universalIndex]){
-                modifyCorrectAnswer(holder,question.answer.toInt())
-            }else{
-                showCorrectAndWrongAnswer(holder,question.answer.toInt(),Constant.selectedOptions[Constant.universalIndex])
-            }
-            Toast.makeText(quizActivity.applicationContext,"Correct Answer is: ${question.answer.toInt()}", Toast.LENGTH_SHORT).show()
+//        if (Constant.goingBack){
+//            if (question.answer.toInt()==Constant.selectedOptions[Constant.universalIndex]){
+//                modifyCorrectAnswer(holder,question.answer.toInt())
+//            }else{
+//                if (!Constant.PrepareMode){
+//                    showCorrectAndWrongAnswer(holder,question.answer.toInt(),Constant.selectedOptions[Constant.universalIndex])
+//                }
+//            }
+//            Toast.makeText(quizActivity.applicationContext,"Correct Answer is: ${question.answer.toInt()}", Toast.LENGTH_SHORT).show()
+//        }
+
+        if(Constant.PrepareMode){
+            prepareModeActive(holder)
         }
 
-        holder.tvOption1.setOnClickListener {
-            if (!Constant.flag){
-                val wrongOptionSelected = correctOption(1,holder.tvOption1,quizQuestion)
-                if (wrongOptionSelected){
-                    if (quizQuestion.answer.toInt()==1){
-                        holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else if (quizQuestion.answer.toInt()==2){
-                        holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else if (quizQuestion.answer.toInt()==3){
-                        holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else{
-                        holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+        if (!Constant.PrepareMode){
+            holder.tvOption1.setOnClickListener {
+                if (!Constant.flag){
+                    val wrongOptionSelected = correctOption(1,holder.tvOption1,quizQuestion)
+                    if (wrongOptionSelected){
+                        if (quizQuestion.answer.toInt()==1){
+                            holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else if (quizQuestion.answer.toInt()==2){
+                            holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else if (quizQuestion.answer.toInt()==3){
+                            holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else{
+                            holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }
                     }
                 }
-            }
 
-        }
-        holder.tvOption2.setOnClickListener {
-            if (!Constant.flag){
-                val wrongOptionSelected = correctOption(2, holder.tvOption2, quizQuestion)
-                if (wrongOptionSelected){
-                    if (quizQuestion.answer.toInt()==2){
-                        holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else if (quizQuestion.answer.toInt()==3){
-                        holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else if (quizQuestion.answer.toInt()==4){
-                        holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else{
-                        holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+            }
+            holder.tvOption2.setOnClickListener {
+                if (!Constant.flag){
+                    val wrongOptionSelected = correctOption(2, holder.tvOption2, quizQuestion)
+                    if (wrongOptionSelected){
+                        if (quizQuestion.answer.toInt()==2){
+                            holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else if (quizQuestion.answer.toInt()==3){
+                            holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else if (quizQuestion.answer.toInt()==4){
+                            holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else{
+                            holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }
                     }
                 }
             }
-        }
-        holder.tvOption3.setOnClickListener {
-            if (!Constant.flag){
-                val wrongOptionSelected = correctOption(3, holder.tvOption3, quizQuestion)
-                if (wrongOptionSelected){
-                    if (quizQuestion.answer.toInt()==3){
-                        holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else if (quizQuestion.answer.toInt()==2){
-                        holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else if (quizQuestion.answer.toInt()==1){
-                        holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else{
-                        holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+            holder.tvOption3.setOnClickListener {
+                if (!Constant.flag){
+                    val wrongOptionSelected = correctOption(3, holder.tvOption3, quizQuestion)
+                    if (wrongOptionSelected){
+                        if (quizQuestion.answer.toInt()==3){
+                            holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else if (quizQuestion.answer.toInt()==2){
+                            holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else if (quizQuestion.answer.toInt()==1){
+                            holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else{
+                            holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }
                     }
                 }
             }
-        }
-        holder.tvOption4.setOnClickListener {
-            if (!Constant.flag){
-                val wrongOptionSelected = correctOption(4, holder.tvOption4, quizQuestion)
-                if (wrongOptionSelected){
-                    if (quizQuestion.answer.toInt()==4){
-                        holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else if (quizQuestion.answer.toInt()==3){
-                        holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else if (quizQuestion.answer.toInt()==2){
-                        holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
-                    }else{
-                        holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+            holder.tvOption4.setOnClickListener {
+                if (!Constant.flag){
+                    val wrongOptionSelected = correctOption(4, holder.tvOption4, quizQuestion)
+                    if (wrongOptionSelected){
+                        if (quizQuestion.answer.toInt()==4){
+                            holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else if (quizQuestion.answer.toInt()==3){
+                            holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else if (quizQuestion.answer.toInt()==2){
+                            holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }else{
+                            holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                        }
                     }
                 }
             }
