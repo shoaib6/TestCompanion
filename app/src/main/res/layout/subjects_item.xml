@@ -33,7 +33,6 @@
         android:layout_height="wrap_content"
         android:text="(900+ MCQs)"
         android:textColor="@color/lite_purple"
-        android:textSize="@dimen/_12ssp"
-        android:layout_marginTop="@dimen/_10sdp"/>
+        android:textSize="@dimen/_12ssp"/>
 
 </LinearLayout>

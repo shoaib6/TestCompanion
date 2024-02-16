@@ -40,16 +40,12 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
         holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
         holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
         if(quizQuestions[Constant.universalIndex].answer.toInt()==1){
-            Toast.makeText(quizActivity.applicationContext,"Question No: ${Constant.universalIndex} Answer 1", Toast.LENGTH_SHORT).show()
             holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
         }else if(quizQuestions[Constant.universalIndex].answer.toInt()==2){
-            Toast.makeText(quizActivity.applicationContext,"Question No: ${Constant.universalIndex} Answer 2", Toast.LENGTH_SHORT).show()
             holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
         }else if(quizQuestions[Constant.universalIndex].answer.toInt()==3){
-            Toast.makeText(quizActivity.applicationContext,"Question No: ${Constant.universalIndex} Answer 3", Toast.LENGTH_SHORT).show()
             holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
         }else{
-            Toast.makeText(quizActivity.applicationContext,"Question No: ${Constant.universalIndex} Answer 4", Toast.LENGTH_SHORT).show()
             holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
         }
     }

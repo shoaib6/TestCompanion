@@ -31,7 +31,6 @@ class QuizActivity : AppCompatActivity() {
                 super.onPageSelected(position)
                 Constant.universalIndex = position
                 binding.tvQuestionNo.text = (position+1).toString()
-                Toast.makeText(applicationContext,"Page Scrolled${Constant.universalIndex}", Toast.LENGTH_SHORT).show()
             }
         })
         binding.btnNext.setOnClickListener {
@@ -41,7 +40,7 @@ class QuizActivity : AppCompatActivity() {
                 currentItemPosition = nextItemPosition
             }
             Constant.flag = false
-            if (currentItemPosition>=1){
+            if (currentItemPosition>=1 && Constant.PrepareMode){
                 binding.btnBack.visibility = View.VISIBLE
             }
             quizAdapter.notifyItemChanged(Constant.universalIndex)
@@ -55,7 +54,11 @@ class QuizActivity : AppCompatActivity() {
             }
             Constant.goingBack = true
             quizAdapter.notifyItemChanged(Constant.universalIndex)
-
+        }
+        if (Constant.PrepareMode){
+            binding.tagMode.text = "Prepare"
+        }else{
+            binding.tagMode.text = "Quiz"
         }
 
     }

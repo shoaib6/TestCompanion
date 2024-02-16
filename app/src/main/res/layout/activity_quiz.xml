@@ -16,6 +16,7 @@
 
 
         <TextView
+            android:id="@+id/tagMode"
             android:layout_width="@dimen/_85sdp"
             android:layout_height="@dimen/_30sdp"
             android:text="Prepare"
