@@ -13,4 +13,5 @@
     <color name="green">#4CB050</color>
     <color name="lite_green">#C8E6CA</color>
     <color name="lite_red">#FFCDD2</color>
+    <color name="shimmer_color">#C2C2C2</color>
 </resources>
