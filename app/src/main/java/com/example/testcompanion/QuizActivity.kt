@@ -1,5 +1,6 @@
 package com.example.testcompanion
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -41,6 +42,9 @@ class QuizActivity : AppCompatActivity() {
             if (nextItemPosition < quizAdapter.itemCount) {
                 binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
                 currentItemPosition = nextItemPosition
+            }else{
+                val intent = Intent(this,AnswerSheet::class.java)
+                startActivity(intent)
             }
             Constant.flag = false
             if (currentItemPosition>=1 && Constant.PrepareMode){
@@ -84,6 +88,7 @@ class QuizActivity : AppCompatActivity() {
 
                     val quizQuestion = QuizQuestion(question, options, answer)
                     quizQuestions.add(quizQuestion)
+                    Constant.universalQuiz.add(quizQuestion)
                 }
 
                 // Notify the adapter that data has changed
@@ -100,7 +105,8 @@ class QuizActivity : AppCompatActivity() {
                         }
 
                         override fun onFinish() {
-                            TODO("Not yet implemented")
+                            val intent = Intent(applicationContext,AnswerSheet::class.java)
+                            startActivity(intent)
                         }
 
                     }.start()
@@ -122,7 +128,5 @@ class QuizActivity : AppCompatActivity() {
         if (!Constant.PrepareMode){
             countDownTimer.cancel()
         }
-
     }
-
 }
