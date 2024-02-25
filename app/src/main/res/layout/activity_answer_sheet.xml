@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/dark_purple"
+    tools:context=".AnswerSheet">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Question/Answers"
+        android:textColor="@color/white"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_15sdp"
+        android:textSize="@dimen/_16ssp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:background="@drawable/layout_background_design">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/answerSheetRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginHorizontal="@dimen/_5sdp"/>
+
+    </LinearLayout>
+
+</LinearLayout>
