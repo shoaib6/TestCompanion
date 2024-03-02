@@ -66,9 +66,10 @@ class SubjectsActivity : AppCompatActivity() {
 
     }
 
-    fun goToQuizActivity(){
+    fun goToSectionsActivity(){
         Constant.flag = false
-        val intent = Intent(this,QuizActivity::class.java)
+//        val intent = Intent(this,QuizActivity::class.java)
+        val intent = Intent(this,SectionsActivity::class.java)
         startActivity(intent)
     }
 

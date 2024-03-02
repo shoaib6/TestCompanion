@@ -15,47 +15,10 @@
         android:background="@drawable/layout_background_design"
         android:layout_marginTop="@dimen/_50sdp">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="@dimen/_70sdp"
-            android:layout_height="@dimen/_70sdp">
-
-            <com.mikhaellopez.circularprogressbar.CircularProgressBar
-                android:id="@+id/circularProgressBar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cpb_background_progressbar_color="#b6bbd8"
-                app:cpb_background_progressbar_width="5dp"
-                app:cpb_progress_direction="to_right"
-                app:cpb_progressbar_color="#3f51b5"
-                app:cpb_progressbar_width="10dp"
-                app:cpb_round_border="true"
-                app:cpb_progress="65"
-                app:cpb_progress_max="100"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
-
-            <LinearLayout
-                android:layout_width="@dimen/_50sdp"
-                android:layout_height="@dimen/_50sdp"
-                android:gravity="center"
-                android:background="@drawable/sections_buttons_corners"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Section 1"
-                    android:textSize="@dimen/_10ssp"
-                    android:textColor="@color/black"/>
-
-            </LinearLayout>
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/sectionsRecyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     </LinearLayout>
 

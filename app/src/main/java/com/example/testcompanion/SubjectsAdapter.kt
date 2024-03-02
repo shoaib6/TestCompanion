@@ -27,7 +27,8 @@ class SubjectsAdapter(private val subjectsName: List<String>, private val subjec
         holder.subjectName.text = subjectsName[position]
         holder.subjectsImageView.setImageResource(subjectsImageList[position])
         holder.btnSubject.setOnClickListener {
-            subjectsActivity.goToQuizActivity()
+            Constant.Subject = subjectsName[position]
+            subjectsActivity.goToSectionsActivity()
         }
     }
 
