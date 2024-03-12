@@ -28,8 +28,8 @@ class SubjectsActivity : AppCompatActivity() {
         subjectsImageList.add(R.drawable.islamic_studies_icon)
         subjectsImageList.add(R.drawable.geography_icon)
         subjectsImageList.add(R.drawable.current_affairs_icon)
-        subjectsName.add("G Knowledge")
-        subjectsName.add("Computer")
+        subjectsName.add("General Knowledge")
+        subjectsName.add("Computer Science")
         subjectsName.add("Physics")
         subjectsName.add("Chemistry")
         subjectsName.add("Biology")
@@ -41,6 +41,7 @@ class SubjectsActivity : AppCompatActivity() {
 
 
         val layoutManager = GridLayoutManager(this, 2) // Set the number of columns
+        binding.subjectsRecyclerView.addItemDecoration(GridSpacingItemDecoration(this,2,18,true))
         binding.subjectsRecyclerView.layoutManager = layoutManager
         val adapter = SubjectsAdapter(subjectsName,subjectsImageList,this)
         binding.subjectsRecyclerView.adapter = adapter
@@ -68,7 +69,6 @@ class SubjectsActivity : AppCompatActivity() {
 
     fun goToSectionsActivity(){
         Constant.flag = false
-//        val intent = Intent(this,QuizActivity::class.java)
         val intent = Intent(this,SectionsActivity::class.java)
         startActivity(intent)
     }

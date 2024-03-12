@@ -1,8 +1,10 @@
 package com.example.testcompanion
 
 import android.content.Intent
+import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testcompanion.databinding.ActivitySectionsBinding
@@ -37,10 +39,12 @@ class SectionsActivity : AppCompatActivity() {
                     // Add the section name to the ArrayList
                     sectionNames.add(sectionName)
                     val layoutManager = GridLayoutManager(this,4)
-                    binding.sectionsRecyclerview.addItemDecoration(GridSpacingItemDecoration(this,4,15,true))
+                    binding.sectionsRecyclerview.addItemDecoration(GridSpacingItemDecoration(this,4,2,true))
                     sectionsAdapter = SectionsAdapter(this,sectionNames)
                     binding.sectionsRecyclerview.layoutManager = layoutManager
                     binding.sectionsRecyclerview.adapter = sectionsAdapter
+                    binding.shimmerFrameLayout.visibility = View.GONE
+                    binding.sectionsRecyclerview.visibility = View.VISIBLE
                 }
 
                 // After adding all section names, you can use the list for your RecyclerView
