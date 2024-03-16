@@ -22,6 +22,13 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
         }
     }
 
+    private fun resetOptions(holder: ViewHolder){
+        holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+        holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+        holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+        holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+    }
+
     private fun modifyCorrectAnswer(holder: ViewHolder, answer: Int) {
         if (answer==1){
             holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
@@ -35,10 +42,7 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
     }
 
     private fun prepareModeActive(holder: ViewHolder){
-        holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
-        holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
-        holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
-        holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.unselected_option_design)
+        resetOptions(holder)
         if(quizQuestions[Constant.universalIndex].answer.toInt()==1){
             holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
         }else if(quizQuestions[Constant.universalIndex].answer.toInt()==2){
@@ -108,9 +112,8 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
 
         if(Constant.PrepareMode){
             prepareModeActive(holder)
-        }
-
-        if (!Constant.PrepareMode){
+        }else{
+            resetOptions(holder)
             holder.tvOption1.setOnClickListener {
                 if (!Constant.flag){
                     val wrongOptionSelected = correctOption(1,holder.tvOption1,quizQuestion)
@@ -181,7 +184,7 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
     }
 
     override fun getItemCount(): Int {
-        return quizQuestions.size
+        return Constant.universalQuiz.size
     }
 
 }
