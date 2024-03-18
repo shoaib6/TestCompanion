@@ -30,11 +30,14 @@ class QuizActivity : AppCompatActivity() {
     private var timeRemaining: Long = 0
     private val quizQuestions = ArrayList<QuizQuestion>()
     private var currentItemPosition = 0
+    private lateinit var dialog: Dialog
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        dialog = Dialog(this)
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         loadQuizQuestions()
         quizAdapter = QuizAdapter(quizQuestions,this)
         binding.viewPager.adapter = quizAdapter
@@ -131,16 +134,15 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun pauseTimer() {
-        if (isTimerRunning) {
-            countDownTimer.cancel()
-            isTimerRunning = false
+        countDownTimer.cancel()
+        isTimerRunning = false
             val minutes = timeRemaining / 60000
             val seconds = (timeRemaining % 60000) / 1000
             binding.tagMode.text = String.format("%02d:%02d", minutes, seconds)
-        }
     }
 
     private fun resumeTimer(){
+        isTimerRunning = true
         countDownTimer = object : CountDownTimer(timeRemaining, 1000){ // 40 minutes in milliseconds
             override fun onTick(millisUntilFinished: Long) {
                 timeRemaining = millisUntilFinished
@@ -156,7 +158,7 @@ class QuizActivity : AppCompatActivity() {
             }
 
         }.start()
-        isTimerRunning = true
+
     }
 
     private fun cancelTimer() {
@@ -166,14 +168,7 @@ class QuizActivity : AppCompatActivity() {
         timeRemaining = 0
     }
 
-    override fun onBackPressed() {
-//        super.onBackPressed()
-        Constant.selectedOptions.clear()
-        Constant.universalIndex = 0
-        pauseTimer()
-
-        val dialog = Dialog(this)
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+    private fun openExitCustomDialog(){
         dialog.setContentView(R.layout.exit_custom_dialog)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         val btnExit =   dialog.findViewById<LinearLayout>(R.id.btnExit)
@@ -182,7 +177,6 @@ class QuizActivity : AppCompatActivity() {
         dialog.show()
         btnResume.setOnClickListener {
             dialog.dismiss()
-            resumeTimer()
         }
         btnExit.setOnClickListener {
             dialog.dismiss()
@@ -200,11 +194,29 @@ class QuizActivity : AppCompatActivity() {
             }
         }
 
+        // Set an OnDismissListener to resume the timer when the dialog is dismissed
+        dialog.setOnDismissListener {
+            if (!Constant.PrepareMode){
+                resumeTimer()
+            }
+        }
+    }
+
+    override fun onBackPressed() {
+//        super.onBackPressed()
+        Constant.selectedOptions.clear()
+        Constant.universalIndex = 0
+        if (isTimerRunning){
+            pauseTimer()
+            openExitCustomDialog()
+        }else{
+            openExitCustomDialog()
+        }
+
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        cancelTimer()
         if (!Constant.PrepareMode){
             countDownTimer.cancel()
         }
