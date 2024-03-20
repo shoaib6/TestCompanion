@@ -13,5 +13,7 @@ class Constant {
         var PrepareMode = true
         var QuizMode = false
         var universalQuiz = ArrayList<QuizQuestion>()
+        var remainingTime = ""
+        var totalQuestionsAttempted = 0
     }
 }

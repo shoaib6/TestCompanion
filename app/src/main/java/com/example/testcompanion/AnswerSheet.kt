@@ -19,6 +19,7 @@ class AnswerSheet : AppCompatActivity() {
         answerSheetAdapter = AnswerSheetAdapter(this)
         binding.answerSheetRecyclerview.layoutManager = layoutManager
         binding.answerSheetRecyclerview.adapter = answerSheetAdapter
+        binding.remainingTimetextView.text = Constant.remainingTime
 
 
     }

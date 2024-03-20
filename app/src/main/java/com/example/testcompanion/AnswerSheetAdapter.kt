@@ -29,6 +29,6 @@ class AnswerSheetAdapter(private val answerSheet: AnswerSheet) : RecyclerView.Ad
     }
 
     override fun getItemCount(): Int {
-        return Constant.universalQuiz.size
+        return Constant.totalQuestionsAttempted
     }
 }

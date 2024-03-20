@@ -52,6 +52,7 @@ class QuizActivity : AppCompatActivity() {
         })
         binding.btnNext.setOnClickListener {
             val nextItemPosition = currentItemPosition + 1
+            Constant.totalQuestionsAttempted++
             if (nextItemPosition < quizAdapter.itemCount) {
                 binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
                 currentItemPosition = nextItemPosition
@@ -109,13 +110,14 @@ class QuizActivity : AppCompatActivity() {
                 binding.shimmerFrameLayout.visibility = View.GONE
                 binding.viewPager.visibility = View.VISIBLE
                 if (!Constant.PrepareMode){
-                    countDownTimer = object : CountDownTimer(2400000, 1000){ // 40 minutes in milliseconds
+                    countDownTimer = object : CountDownTimer(10000, 1000){ // 40 minutes in milliseconds
                         override fun onTick(millisUntilFinished: Long) {
                             //remaining time in minutes and milliseconds
                             val minutes = millisUntilFinished / 60000
                             val seconds = (millisUntilFinished % 60000) / 1000
                             timeRemaining = millisUntilFinished
                             binding.tagMode.text = String.format("%02d:%02d", minutes, seconds)
+                            Constant.remainingTime = String.format("%02d:%02d", minutes, seconds)
                         }
 
                         override fun onFinish() {
@@ -139,6 +141,7 @@ class QuizActivity : AppCompatActivity() {
             val minutes = timeRemaining / 60000
             val seconds = (timeRemaining % 60000) / 1000
             binding.tagMode.text = String.format("%02d:%02d", minutes, seconds)
+        Constant.remainingTime = String.format("%02d:%02d", minutes, seconds)
     }
 
     private fun resumeTimer(){
@@ -149,6 +152,7 @@ class QuizActivity : AppCompatActivity() {
                 val minutes = millisUntilFinished / 60000
                 val seconds = (millisUntilFinished % 60000) / 1000
                 binding.tagMode.text = String.format("%02d:%02d", minutes, seconds)
+                Constant.remainingTime = String.format("%02d:%02d", minutes, seconds)
             }
 
             override fun onFinish() {
