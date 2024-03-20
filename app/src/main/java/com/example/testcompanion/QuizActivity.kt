@@ -52,11 +52,15 @@ class QuizActivity : AppCompatActivity() {
         })
         binding.btnNext.setOnClickListener {
             val nextItemPosition = currentItemPosition + 1
+            if (quizQuestions.size-1==nextItemPosition){
+                binding.btnNext.text = "Finish"
+            }
             Constant.totalQuestionsAttempted++
             if (nextItemPosition < quizAdapter.itemCount) {
                 binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
                 currentItemPosition = nextItemPosition
             }else{
+                countDownTimer.cancel()
                 val intent = Intent(this,AnswerSheet::class.java)
                 startActivity(intent)
             }
@@ -110,7 +114,7 @@ class QuizActivity : AppCompatActivity() {
                 binding.shimmerFrameLayout.visibility = View.GONE
                 binding.viewPager.visibility = View.VISIBLE
                 if (!Constant.PrepareMode){
-                    countDownTimer = object : CountDownTimer(10000, 1000){ // 40 minutes in milliseconds
+                    countDownTimer = object : CountDownTimer(20000, 1000){ // 40 minutes in milliseconds
                         override fun onTick(millisUntilFinished: Long) {
                             //remaining time in minutes and milliseconds
                             val minutes = millisUntilFinished / 60000
