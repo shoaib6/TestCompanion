@@ -1,5 +1,6 @@
 package com.example.testcompanion
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
@@ -27,6 +28,11 @@ class AnswerSheet : AppCompatActivity() {
     override fun onBackPressed() {
         super.onBackPressed()
         Constant.universalQuiz.clear()
+        Constant.totalQuestionsAttempted = 0
+        val intent = Intent(this, SectionsActivity::class.java)
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
+        startActivity(intent)
+        finish()
     }
 
     override fun onDestroy() {

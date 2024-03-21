@@ -15,5 +15,6 @@ class Constant {
         var universalQuiz = ArrayList<QuizQuestion>()
         var remainingTime = ""
         var totalQuestionsAttempted = 0
+        var attempted = false
     }
 }

@@ -1,10 +1,10 @@
 package com.example.testcompanion
 
+import android.animation.ObjectAnimator
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val quizActivity: QuizActivity) :
@@ -115,6 +115,8 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
         }else{
             resetOptions(holder)
             holder.tvOption1.setOnClickListener {
+                Constant.attempted = true
+                quizActivity.enableButton()
                 if (!Constant.flag){
                     val wrongOptionSelected = correctOption(1,holder.tvOption1,quizQuestion)
                     if (wrongOptionSelected){
@@ -132,6 +134,8 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
 
             }
             holder.tvOption2.setOnClickListener {
+                Constant.attempted = true
+                quizActivity.enableButton()
                 if (!Constant.flag){
                     val wrongOptionSelected = correctOption(2, holder.tvOption2, quizQuestion)
                     if (wrongOptionSelected){
@@ -148,6 +152,8 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
                 }
             }
             holder.tvOption3.setOnClickListener {
+                Constant.attempted = true
+                quizActivity.enableButton()
                 if (!Constant.flag){
                     val wrongOptionSelected = correctOption(3, holder.tvOption3, quizQuestion)
                     if (wrongOptionSelected){
@@ -164,6 +170,8 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
                 }
             }
             holder.tvOption4.setOnClickListener {
+                Constant.attempted = true
+                quizActivity.enableButton()
                 if (!Constant.flag){
                     val wrongOptionSelected = correctOption(4, holder.tvOption4, quizQuestion)
                     if (wrongOptionSelected){

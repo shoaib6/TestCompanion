@@ -1,5 +1,6 @@
 package com.example.testcompanion
 
+import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -8,11 +9,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.KeyEvent
+import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.widget.Button
 import android.widget.EditText
 import android.widget.LinearLayout
+import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -36,6 +39,7 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        disableButton()
         dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         loadQuizQuestions()
@@ -48,27 +52,34 @@ class QuizActivity : AppCompatActivity() {
                 super.onPageSelected(position)
                 Constant.universalIndex = position
                 binding.tvQuestionNo.text = (position+1).toString()
+                Constant.attempted = false
+                disableButton()
             }
         })
         binding.btnNext.setOnClickListener {
-            val nextItemPosition = currentItemPosition + 1
-            if (quizQuestions.size-1==nextItemPosition){
-                binding.btnNext.text = "Finish"
-            }
-            Constant.totalQuestionsAttempted++
-            if (nextItemPosition < quizAdapter.itemCount) {
-                binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
-                currentItemPosition = nextItemPosition
+            if (Constant.attempted){
+                val nextItemPosition = currentItemPosition + 1
+                if (quizQuestions.size-1==nextItemPosition){
+                    binding.btnNext.text = "Finish"
+                }
+                Constant.totalQuestionsAttempted++
+                if (nextItemPosition < quizAdapter.itemCount) {
+                    binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
+                    currentItemPosition = nextItemPosition
+                }else{
+                    countDownTimer.cancel()
+                    val intent = Intent(this,AnswerSheet::class.java)
+                    startActivity(intent)
+                }
+                Constant.flag = false
+                if (currentItemPosition>=1 && Constant.PrepareMode){
+                    binding.btnBack.visibility = View.VISIBLE
+                }
+                quizAdapter.notifyItemChanged(Constant.universalIndex)
             }else{
-                countDownTimer.cancel()
-                val intent = Intent(this,AnswerSheet::class.java)
-                startActivity(intent)
+
             }
-            Constant.flag = false
-            if (currentItemPosition>=1 && Constant.PrepareMode){
-                binding.btnBack.visibility = View.VISIBLE
-            }
-            quizAdapter.notifyItemChanged(Constant.universalIndex)
+
         }
         binding.btnBack.setOnClickListener {
             val nextItemPosition = currentItemPosition - 1
@@ -208,6 +219,14 @@ class QuizActivity : AppCompatActivity() {
                 resumeTimer()
             }
         }
+    }
+
+    fun disableButton(){
+        binding.btnNext.background = resources.getDrawable(R.drawable.disable_button_design)
+    }
+
+    fun enableButton(){
+        binding.btnNext.background = resources.getDrawable(R.drawable.button_design)
     }
 
     override fun onBackPressed() {
