@@ -30,7 +30,7 @@ class CategoriesFragment : Fragment() {
         val categoryName = ArrayList<String>()
         val courseImageList = ArrayList<Int>()
         courseImageList.add(R.drawable.gat_icon)
-        courseImageList.add(R.drawable.nts_icon)
+        courseImageList.add(R.drawable.nat_icon)
         courseImageList.add(R.drawable.ppsc_icon)
         courseImageList.add(R.drawable.mdcat_icon)
         courseImageList.add(R.drawable.psa_icon)

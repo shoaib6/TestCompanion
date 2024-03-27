@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testcompanion.databinding.ActivitySubjectsBinding
-import com.google.firebase.firestore.FirebaseFirestore
 
 class SubjectsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySubjectsBinding
@@ -19,13 +18,13 @@ class SubjectsActivity : AppCompatActivity() {
         val subjectsName = ArrayList<String>()
         val subjectsImageList = ArrayList<Int>()
         subjectsImageList.add(R.drawable.general_knowledge_icon)
-        subjectsImageList.add(R.drawable.computer_science_icon)
+        subjectsImageList.add(R.drawable.computer_icon)
         subjectsImageList.add(R.drawable.physics_icon)
         subjectsImageList.add(R.drawable.chemistry_icon)
         subjectsImageList.add(R.drawable.biology_icon)
         subjectsImageList.add(R.drawable.english_icon)
         subjectsImageList.add(R.drawable.math_icon)
-        subjectsImageList.add(R.drawable.islamic_studies_icon)
+        subjectsImageList.add(R.drawable.islamic_icon)
         subjectsImageList.add(R.drawable.geography_icon)
         subjectsImageList.add(R.drawable.current_affairs_icon)
         subjectsName.add("General Knowledge")

@@ -16,5 +16,6 @@ class Constant {
         var remainingTime = ""
         var totalQuestionsAttempted = 0
         var attempted = false
+        var checkingQuestion = 0
     }
 }

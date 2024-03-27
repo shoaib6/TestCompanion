@@ -19,7 +19,7 @@ class SubjectsAdapter(private val subjectsName: List<String>, private val subjec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.subjects_item, parent, false)
+            .inflate(R.layout.item_subjects, parent, false)
         return ViewHolder(view)
     }
 

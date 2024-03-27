@@ -13,9 +13,11 @@
         android:theme="@style/Theme.TestCompanion"
         tools:targetApi="31">
         <activity
+            android:name=".CheckingActivity"
+            android:exported="false" />
+        <activity
             android:name=".SectionsActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".AnswerSheet"
             android:exported="false" />

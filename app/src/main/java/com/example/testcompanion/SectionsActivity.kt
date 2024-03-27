@@ -19,6 +19,7 @@ class SectionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_sections)
         binding = ActivitySectionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        binding.subjectName.text = Constant.Subject
         loadSectionNames()
 
 

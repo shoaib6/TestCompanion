@@ -39,7 +39,9 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        disableButton()
+        if (!Constant.PrepareMode){
+            disableButton()
+        }
         dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         loadQuizQuestions()
@@ -53,11 +55,32 @@ class QuizActivity : AppCompatActivity() {
                 Constant.universalIndex = position
                 binding.tvQuestionNo.text = (position+1).toString()
                 Constant.attempted = false
-                disableButton()
+                if (!Constant.PrepareMode){
+                    disableButton()
+                }
             }
         })
         binding.btnNext.setOnClickListener {
-            if (Constant.attempted){
+            if (Constant.attempted && !Constant.PrepareMode){
+                val nextItemPosition = currentItemPosition + 1
+                if (quizQuestions.size-1==nextItemPosition){
+                    binding.btnNext.text = "Finish"
+                }
+                Constant.totalQuestionsAttempted++
+                if (nextItemPosition < quizAdapter.itemCount) {
+                    binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
+                    currentItemPosition = nextItemPosition
+                }else{
+                    countDownTimer.cancel()
+                    val intent = Intent(this,AnswerSheet::class.java)
+                    startActivity(intent)
+                }
+                Constant.flag = false
+                if (currentItemPosition>=1 && Constant.PrepareMode){
+                    binding.btnBack.visibility = View.VISIBLE
+                }
+                quizAdapter.notifyItemChanged(Constant.universalIndex)
+            }else if(Constant.PrepareMode){
                 val nextItemPosition = currentItemPosition + 1
                 if (quizQuestions.size-1==nextItemPosition){
                     binding.btnNext.text = "Finish"
@@ -198,6 +221,8 @@ class QuizActivity : AppCompatActivity() {
             dialog.dismiss()
         }
         btnExit.setOnClickListener {
+            Constant.universalQuiz.clear()
+            Constant.totalQuestionsAttempted = 0
             dialog.dismiss()
             finish()
         }
