@@ -49,17 +49,23 @@ class QuizActivity : AppCompatActivity() {
         binding.viewPager.adapter = quizAdapter
 
         binding.viewPager.isUserInputEnabled = false
-        binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-            override fun onPageSelected(position: Int) {
-                super.onPageSelected(position)
-                Constant.universalIndex = position
-                binding.tvQuestionNo.text = (position+1).toString()
-                Constant.attempted = false
-                if (!Constant.PrepareMode){
-                    disableButton()
+        //
+            binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+                    Constant.universalIndex = position
+                    binding.tvQuestionNo.text = (position+1).toString()
+                    Constant.attempted = false
+                    if (!Constant.PrepareMode){
+                        disableButton()
+                    }
                 }
-            }
-        })
+            })
+        if (Constant.isCheckingAnswers){
+            Toast.makeText(this,"true",Toast.LENGTH_SHORT).show()
+            binding.viewPager.setCurrentItem(Constant.checkingQuestion, true)
+        }
+        //
         binding.btnNext.setOnClickListener {
             if (Constant.attempted && !Constant.PrepareMode){
                 val nextItemPosition = currentItemPosition + 1
@@ -124,8 +130,9 @@ class QuizActivity : AppCompatActivity() {
 
     private fun loadQuizQuestions() {
         val fireStore = FirebaseFirestore.getInstance()
-        val quizCollection = fireStore.collection("GAT").document("GAT").collection("Computer Science") // Replace with your collection name
-
+//        val quizCollection = fireStore.collection("GAT").document("GAT").collection("Computer Science") // Replace with your collection name
+        val quizCollection = fireStore.collection(Constant.Category).document(Constant.Subject).collection("Sections").document(Constant.SectionsName).collection("MCQs")
+        Toast.makeText(this,Constant.Category+Constant.Subject+"Sections"+Constant.SectionsName+"MCQs",Toast.LENGTH_SHORT).show()
         quizCollection.get()
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
@@ -147,7 +154,7 @@ class QuizActivity : AppCompatActivity() {
                 quizAdapter.notifyDataSetChanged()
                 binding.shimmerFrameLayout.visibility = View.GONE
                 binding.viewPager.visibility = View.VISIBLE
-                if (!Constant.PrepareMode){
+                if (!Constant.PrepareMode && !Constant.isCheckingAnswers){
                     countDownTimer = object : CountDownTimer(20000, 1000){ // 40 minutes in milliseconds
                         override fun onTick(millisUntilFinished: Long) {
                             //remaining time in minutes and milliseconds
@@ -258,18 +265,24 @@ class QuizActivity : AppCompatActivity() {
 //        super.onBackPressed()
         Constant.selectedOptions.clear()
         Constant.universalIndex = 0
-        if (isTimerRunning){
-            pauseTimer()
-            openExitCustomDialog()
+        if (!Constant.isCheckingAnswers){
+            if (isTimerRunning){
+                pauseTimer()
+                openExitCustomDialog()
+            }else{
+                openExitCustomDialog()
+            }
         }else{
-            openExitCustomDialog()
+            Constant.universalQuiz.clear()
+            Constant.totalQuestionsAttempted = 0
+            finish()
         }
 
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        if (!Constant.PrepareMode){
+        if (!Constant.PrepareMode && !Constant.isCheckingAnswers){
             countDownTimer.cancel()
         }
     }

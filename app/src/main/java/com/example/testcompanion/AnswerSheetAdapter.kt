@@ -26,6 +26,12 @@ class AnswerSheetAdapter(private val answerSheet: AnswerSheet) : RecyclerView.Ad
         }else{
             holder.answerBox.background = answerSheet.resources.getDrawable(R.drawable.wrong_result_box_design)
         }
+        //
+        holder.answerBox.setOnClickListener {
+            Constant.isCheckingAnswers = true
+            answerSheet.checkAnswers(position)
+        }
+        //
     }
 
     override fun getItemCount(): Int {

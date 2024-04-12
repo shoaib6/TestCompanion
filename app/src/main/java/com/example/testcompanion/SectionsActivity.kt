@@ -1,11 +1,9 @@
 package com.example.testcompanion
 
 import android.content.Intent
-import android.opengl.Visibility
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testcompanion.databinding.ActivitySectionsBinding
 import com.google.firebase.firestore.FirebaseFirestore
@@ -62,8 +60,9 @@ class SectionsActivity : AppCompatActivity() {
             }
     }
 
-    fun goToQuizActivity(){
+    fun goToQuizActivity(position: Int) {
         Constant.flag = false
+        Constant.SectionsName = sectionNames[position]
         val intent = Intent(this,QuizActivity::class.java)
         startActivity(intent)
     }

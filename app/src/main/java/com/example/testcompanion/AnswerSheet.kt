@@ -3,8 +3,8 @@ package com.example.testcompanion
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.testcompanion.databinding.ActivityAnswerSheetBinding
 
 class AnswerSheet : AppCompatActivity() {
@@ -25,10 +25,20 @@ class AnswerSheet : AppCompatActivity() {
 
     }
 
+    //
+    fun checkAnswers(position: Int) {
+        Constant.checkingQuestion = position
+        Toast.makeText(this,"Checking Q No: $position", Toast.LENGTH_SHORT).show()
+        val intent = Intent(this,QuizActivity::class.java)
+        startActivity(intent)
+    }
+    //
+
     override fun onBackPressed() {
         super.onBackPressed()
         Constant.universalQuiz.clear()
         Constant.totalQuestionsAttempted = 0
+        Constant.isCheckingAnswers = false
         val intent = Intent(this, SectionsActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)

@@ -7,6 +7,7 @@ class Constant {
         var flag = false
         var Category = ""
         var Subject = ""
+        var SectionsName = ""
         var selectedOptions = ArrayList<Int>()
         var goingBack = false
         var universalIndex = 0
@@ -17,5 +18,7 @@ class Constant {
         var totalQuestionsAttempted = 0
         var attempted = false
         var checkingQuestion = 0
+        var isCheckingAnswers = false
+
     }
 }

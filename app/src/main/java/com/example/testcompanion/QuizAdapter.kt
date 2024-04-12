@@ -54,6 +54,14 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
         }
     }
 
+    private fun demo(position: Int) : Int{
+        return if (Constant.isCheckingAnswers){
+            Constant.checkingQuestion
+        }else{
+            position
+        }
+    }
+
     private fun showCorrectAndWrongAnswer(holder: ViewHolder, correctAnswer: Int, selectedAnswer: Int) {
         if (correctAnswer==1){
             holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
@@ -90,7 +98,8 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val quizQuestion = quizQuestions[position]
+
+        val quizQuestion = quizQuestions[demo(position)]
         val question = quizQuestions[Constant.universalIndex]
 
         holder.tvQuestions.text = "Q: ${quizQuestion.question}"
