@@ -96,9 +96,10 @@ class QuizActivity : AppCompatActivity() {
                     binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
                     currentItemPosition = nextItemPosition
                 }else{
-                    countDownTimer.cancel()
-                    val intent = Intent(this,AnswerSheet::class.java)
-                    startActivity(intent)
+//                    countDownTimer.cancel()
+//                    val intent = Intent(this,AnswerSheet::class.java)
+//                    startActivity(intent)
+                    openPrepCompletedDialog()
                 }
                 Constant.flag = false
                 if (currentItemPosition>=1 && Constant.PrepareMode){
@@ -253,6 +254,27 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
+    private fun openPrepCompletedDialog(){
+        dialog.setContentView(R.layout.prep_completed_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val btnRetake =   dialog.findViewById<LinearLayout>(R.id.btnRetake)
+        val btnTest = dialog.findViewById<LinearLayout>(R.id.btnTest)
+        dialog.setCancelable(false)
+        dialog.show()
+        btnRetake.setOnClickListener {
+            binding.viewPager.setCurrentItem(0, true)
+            currentItemPosition = 0
+            binding.btnBack.visibility = View.GONE
+            binding.btnNext.text = "Next"
+            dialog.dismiss()
+        }
+        btnTest.setOnClickListener {
+            Constant.PrepareMode = false
+            finish()
+            startActivity(Intent(this, QuizActivity::class.java))
+        }
+    }
+
     fun disableButton(){
         binding.btnNext.background = resources.getDrawable(R.drawable.disable_button_design)
     }
@@ -283,7 +305,9 @@ class QuizActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
         if (!Constant.PrepareMode && !Constant.isCheckingAnswers){
-            countDownTimer.cancel()
+            if(timeRemaining>0){
+                countDownTimer.cancel()
+            }
         }
     }
 }
