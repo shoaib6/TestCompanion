@@ -19,6 +19,7 @@ class Constant {
         var attempted = false
         var checkingQuestion = 0
         var isCheckingAnswers = false
+        var ruko = 0
 
     }
 }

@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val quizActivity: QuizActivity) :
@@ -58,6 +59,9 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
         return if (Constant.isCheckingAnswers){
             Constant.checkingQuestion
         }else{
+//            Toast.makeText(quizActivity.applicationContext,"Position: "+position,Toast.LENGTH_SHORT).show()
+//            Toast.makeText(quizActivity.applicationContext,"Question Size is: "+quizQuestions.size,Toast.LENGTH_SHORT).show()
+//            Toast.makeText(quizActivity.applicationContext,"Universal Quiz Size is: "+Constant.universalQuiz.size,Toast.LENGTH_SHORT).show()
             position
         }
     }
@@ -98,7 +102,6 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-
         val quizQuestion = quizQuestions[demo(position)]
         val question = quizQuestions[Constant.universalIndex]
 

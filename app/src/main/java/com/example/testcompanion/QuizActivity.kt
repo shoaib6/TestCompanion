@@ -62,7 +62,6 @@ class QuizActivity : AppCompatActivity() {
                 }
             })
         if (Constant.isCheckingAnswers){
-            Toast.makeText(this,"true",Toast.LENGTH_SHORT).show()
             binding.viewPager.setCurrentItem(Constant.checkingQuestion, true)
         }
         //
@@ -133,7 +132,6 @@ class QuizActivity : AppCompatActivity() {
         val fireStore = FirebaseFirestore.getInstance()
 //        val quizCollection = fireStore.collection("GAT").document("GAT").collection("Computer Science") // Replace with your collection name
         val quizCollection = fireStore.collection(Constant.Category).document(Constant.Subject).collection("Sections").document(Constant.SectionsName).collection("MCQs")
-        Toast.makeText(this,Constant.Category+Constant.Subject+"Sections"+Constant.SectionsName+"MCQs",Toast.LENGTH_SHORT).show()
         quizCollection.get()
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
@@ -156,7 +154,7 @@ class QuizActivity : AppCompatActivity() {
                 binding.shimmerFrameLayout.visibility = View.GONE
                 binding.viewPager.visibility = View.VISIBLE
                 if (!Constant.PrepareMode && !Constant.isCheckingAnswers){
-                    countDownTimer = object : CountDownTimer(20000, 1000){ // 40 minutes in milliseconds
+                    countDownTimer = object : CountDownTimer(60000, 1000){ // 40 minutes in milliseconds
                         override fun onTick(millisUntilFinished: Long) {
                             //remaining time in minutes and milliseconds
                             val minutes = millisUntilFinished / 60000
@@ -304,6 +302,8 @@ class QuizActivity : AppCompatActivity() {
 
     override fun onDestroy() {
         super.onDestroy()
+        Constant.universalQuiz.clear()
+        Constant.totalQuestionsAttempted = 0
         if (!Constant.PrepareMode && !Constant.isCheckingAnswers){
             if(timeRemaining>0){
                 countDownTimer.cancel()
