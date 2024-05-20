@@ -1,6 +1,8 @@
 package com.example.testcompanion
 
 import android.animation.ObjectAnimator
+import android.graphics.Paint.Style
+import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -126,23 +128,57 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
             resetOptions(holder)
             if (Constant.selectedOptions[Constant.checkingQuestion]==quizQuestion.answer.toInt()){
                 if (Constant.selectedOptions[Constant.checkingQuestion]==1){
-                    holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                    holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
+                    holder.tvOption1.setTextColor(quizActivity.resources.getColor(R.color.green))
+                    holder.tvOption1.setTypeface(holder.tvOption1.typeface,Typeface.BOLD)
                 }else if (Constant.selectedOptions[Constant.checkingQuestion]==2){
-                    holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                    holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
+                    holder.tvOption2.setTextColor(quizActivity.resources.getColor(R.color.green))
+                    holder.tvOption2.setTypeface(holder.tvOption2.typeface,Typeface.BOLD)
                 }else if (Constant.selectedOptions[Constant.checkingQuestion]==3){
-                    holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                    holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
+                    holder.tvOption3.setTextColor(quizActivity.resources.getColor(R.color.green))
+                    holder.tvOption3.setTypeface(holder.tvOption3.typeface,Typeface.BOLD)
                 }else{
-                    holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                    holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
+                    holder.tvOption4.setTextColor(quizActivity.resources.getColor(R.color.green))
+                    holder.tvOption4.setTypeface(holder.tvOption3.typeface,Typeface.BOLD)
                 }
             }else{
                 if (Constant.selectedOptions[Constant.checkingQuestion]==1){
-                    holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.wrong_option_design)
+                    holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.backed_wrong_option_design)
+                    holder.tvOption1.setTextColor(quizActivity.resources.getColor(R.color.red))
+                    holder.tvOption1.setTypeface(holder.tvOption1.typeface,Typeface.BOLD)
                 }else if (Constant.selectedOptions[Constant.checkingQuestion]==2){
-                    holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.wrong_option_design)
+                    holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.backed_wrong_option_design)
+                    holder.tvOption2.setTextColor(quizActivity.resources.getColor(R.color.red))
+                    holder.tvOption2.setTypeface(holder.tvOption2.typeface,Typeface.BOLD)
                 }else if (Constant.selectedOptions[Constant.checkingQuestion]==3){
-                    holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.wrong_option_design)
+                    holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.backed_wrong_option_design)
+                    holder.tvOption3.setTextColor(quizActivity.resources.getColor(R.color.red))
+                    holder.tvOption3.setTypeface(holder.tvOption3.typeface,Typeface.BOLD)
                 }else{
-                    holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.wrong_option_design)
+                    holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.backed_wrong_option_design)
+                    holder.tvOption4.setTextColor(quizActivity.resources.getColor(R.color.red))
+                    holder.tvOption4.setTypeface(holder.tvOption4.typeface,Typeface.BOLD)
+                }
+
+                if(quizQuestion.answer.toInt()==1){
+                    holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
+                    holder.tvOption1.setTextColor(quizActivity.resources.getColor(R.color.green))
+                    holder.tvOption1.setTypeface(holder.tvOption1.typeface,Typeface.BOLD)
+                }else if(quizQuestion.answer.toInt()==2){
+                    holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
+                    holder.tvOption2.setTextColor(quizActivity.resources.getColor(R.color.green))
+                    holder.tvOption2.setTypeface(holder.tvOption2.typeface,Typeface.BOLD)
+                }else if(quizQuestion.answer.toInt()==3){
+                    holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
+                    holder.tvOption3.setTextColor(quizActivity.resources.getColor(R.color.green))
+                    holder.tvOption3.setTypeface(holder.tvOption3.typeface,Typeface.BOLD)
+                }else{
+                    holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.backed_correct_option_design)
+                    holder.tvOption4.setTextColor(quizActivity.resources.getColor(R.color.green))
+                    holder.tvOption4.setTypeface(holder.tvOption3.typeface,Typeface.BOLD)
                 }
             }
         }else{
