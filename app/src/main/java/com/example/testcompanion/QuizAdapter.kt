@@ -59,9 +59,6 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
         return if (Constant.isCheckingAnswers){
             Constant.checkingQuestion
         }else{
-//            Toast.makeText(quizActivity.applicationContext,"Position: "+position,Toast.LENGTH_SHORT).show()
-//            Toast.makeText(quizActivity.applicationContext,"Question Size is: "+quizQuestions.size,Toast.LENGTH_SHORT).show()
-//            Toast.makeText(quizActivity.applicationContext,"Universal Quiz Size is: "+Constant.universalQuiz.size,Toast.LENGTH_SHORT).show()
             position
         }
     }
@@ -124,6 +121,30 @@ class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val qui
 
         if(Constant.PrepareMode){
             prepareModeActive(holder)
+        }
+        else if(Constant.isCheckingAnswers){
+            resetOptions(holder)
+            if (Constant.selectedOptions[Constant.checkingQuestion]==quizQuestion.answer.toInt()){
+                if (Constant.selectedOptions[Constant.checkingQuestion]==1){
+                    holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                }else if (Constant.selectedOptions[Constant.checkingQuestion]==2){
+                    holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                }else if (Constant.selectedOptions[Constant.checkingQuestion]==3){
+                    holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                }else{
+                    holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.correct_option_design)
+                }
+            }else{
+                if (Constant.selectedOptions[Constant.checkingQuestion]==1){
+                    holder.tvOption1.background = quizActivity.resources.getDrawable(R.drawable.wrong_option_design)
+                }else if (Constant.selectedOptions[Constant.checkingQuestion]==2){
+                    holder.tvOption2.background = quizActivity.resources.getDrawable(R.drawable.wrong_option_design)
+                }else if (Constant.selectedOptions[Constant.checkingQuestion]==3){
+                    holder.tvOption3.background = quizActivity.resources.getDrawable(R.drawable.wrong_option_design)
+                }else{
+                    holder.tvOption4.background = quizActivity.resources.getDrawable(R.drawable.wrong_option_design)
+                }
+            }
         }else{
             resetOptions(holder)
             holder.tvOption1.setOnClickListener {

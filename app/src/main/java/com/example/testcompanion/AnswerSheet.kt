@@ -39,6 +39,7 @@ class AnswerSheet : AppCompatActivity() {
         Constant.universalQuiz.clear()
         Constant.totalQuestionsAttempted = 0
         Constant.isCheckingAnswers = false
+        Constant.selectedOptions.clear()
         val intent = Intent(this, SectionsActivity::class.java)
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP)
         startActivity(intent)

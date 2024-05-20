@@ -283,7 +283,9 @@ class QuizActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
 //        super.onBackPressed()
-        Constant.selectedOptions.clear()
+        if (!Constant.isCheckingAnswers){
+            Constant.selectedOptions.clear()
+        }
         Constant.universalIndex = 0
         if (!Constant.isCheckingAnswers){
             if (isTimerRunning){
