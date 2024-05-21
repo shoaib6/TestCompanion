@@ -25,14 +25,12 @@ class AnswerSheet : AppCompatActivity() {
 
     }
 
-    //
     fun checkAnswers(position: Int) {
         Constant.checkingQuestion = position
-        Toast.makeText(this,"Checking Q No: $position", Toast.LENGTH_SHORT).show()
+        Constant.QuestionNo = position
         val intent = Intent(this,QuizActivity::class.java)
         startActivity(intent)
     }
-    //
 
     override fun onBackPressed() {
         super.onBackPressed()

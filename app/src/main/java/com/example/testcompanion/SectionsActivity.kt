@@ -58,6 +58,7 @@ class SectionsActivity : AppCompatActivity() {
             .addOnFailureListener { exception ->
                 println("Error getting documents: $exception")
             }
+
     }
 
     fun goToQuizActivity(position: Int) {

@@ -14,12 +14,12 @@ class Constant {
         var PrepareMode = true
         var QuizMode = false
         var universalQuiz = ArrayList<QuizQuestion>()
-        var remainingTime = ""
+        var remainingTime = "00:00"
         var totalQuestionsAttempted = 0
         var attempted = false
         var checkingQuestion = 0
         var isCheckingAnswers = false
-        var ruko = 0
+        var QuestionNo = 0
 
     }
 }

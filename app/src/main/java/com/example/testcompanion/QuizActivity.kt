@@ -39,6 +39,9 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        if (Constant.isCheckingAnswers){
+            binding.tvQuestionNo.text = (Constant.QuestionNo + 1).toString()
+        }
         if (!Constant.PrepareMode){
             disableButton()
         }
@@ -54,7 +57,9 @@ class QuizActivity : AppCompatActivity() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     Constant.universalIndex = position
-                    binding.tvQuestionNo.text = (position+1).toString()
+                    if (!Constant.isCheckingAnswers){
+                        binding.tvQuestionNo.text = (position+1).toString()
+                    }
                     Constant.attempted = false
                     if (!Constant.PrepareMode){
                         disableButton()
@@ -123,7 +128,7 @@ class QuizActivity : AppCompatActivity() {
         if (Constant.PrepareMode){
             binding.tagMode.text = "Prepare"
         }else{
-            binding.tagMode.text = "00:00"
+            binding.tagMode.text = Constant.remainingTime
         }
 
     }
