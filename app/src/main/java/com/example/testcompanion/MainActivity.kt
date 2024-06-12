@@ -10,6 +10,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.room.Room
 import com.example.testcompanion.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 
@@ -18,11 +19,18 @@ class MainActivity : AppCompatActivity() {
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
     private lateinit var drawerLayout: DrawerLayout
     private lateinit var toolbar: Toolbar
+    lateinit var appDatabase: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        appDatabase = Room.databaseBuilder(applicationContext,
+            AppDatabase::class.java,
+            "AppDatabase"
+        ).build()
+        Constant.appDatabase = appDatabase
 
         val initialFragment: Fragment = CategoriesFragment()
         supportFragmentManager.beginTransaction()

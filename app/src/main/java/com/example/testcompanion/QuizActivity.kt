@@ -19,10 +19,13 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.room.Room
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testcompanion.databinding.ActivityQuizBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firestore.v1.StructuredAggregationQuery.Aggregation.Count
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class QuizActivity : AppCompatActivity() {
 
@@ -34,11 +37,17 @@ class QuizActivity : AppCompatActivity() {
     private val quizQuestions = ArrayList<QuizQuestion>()
     private var currentItemPosition = 0
     private lateinit var dialog: Dialog
+    private lateinit var appDatabase: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
         binding = ActivityQuizBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+//        appDatabase = (applicationContext as MainActivity).appDatabase
+
+        appDatabase = Constant.appDatabase
+
         if (Constant.isCheckingAnswers){
             binding.tvQuestionNo.text = (Constant.QuestionNo + 1).toString()
         }
@@ -82,6 +91,9 @@ class QuizActivity : AppCompatActivity() {
                     currentItemPosition = nextItemPosition
                 }else{
                     countDownTimer.cancel()
+
+//                    storeProgressInDatabase(Constant.totalQuestionsAttempted)
+
                     val intent = Intent(this,AnswerSheet::class.java)
                     startActivity(intent)
                 }
@@ -129,6 +141,20 @@ class QuizActivity : AppCompatActivity() {
             binding.tagMode.text = "Prepare"
         }else{
             binding.tagMode.text = Constant.remainingTime
+        }
+
+    }
+
+    private fun storeProgressInDatabase(progress: Int) {
+
+        GlobalScope.launch {
+            val progressEntity = Progress(
+                category = Constant.Category,
+                subcategory = Constant.Subject,
+                section = Constant.SectionsName,
+                questionsAttempted = progress
+            )
+            appDatabase.progressDao().insertProgress(progressEntity)
         }
 
     }
@@ -233,6 +259,7 @@ class QuizActivity : AppCompatActivity() {
         }
         btnExit.setOnClickListener {
             Constant.universalQuiz.clear()
+            storeProgressInDatabase(Constant.totalQuestionsAttempted)
             Constant.totalQuestionsAttempted = 0
             dialog.dismiss()
             finish()

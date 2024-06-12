@@ -20,6 +20,7 @@ class Constant {
         var checkingQuestion = 0
         var isCheckingAnswers = false
         var QuestionNo = 0
+        lateinit var appDatabase: AppDatabase
 
     }
 }

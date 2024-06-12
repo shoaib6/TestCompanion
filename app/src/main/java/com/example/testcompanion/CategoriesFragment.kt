@@ -41,12 +41,6 @@ class CategoriesFragment : Fragment() {
         categoryName.add("PSA")
         val adapter = CategoryAdapter(categoryName,courseImageList,this)
         recyclerView.adapter = adapter
-
-
-
-
-
-
         return view
     }
 
