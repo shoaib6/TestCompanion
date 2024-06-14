@@ -259,7 +259,9 @@ class QuizActivity : AppCompatActivity() {
         }
         btnExit.setOnClickListener {
             Constant.universalQuiz.clear()
-            storeProgressInDatabase(Constant.totalQuestionsAttempted)
+            if (Constant.QuizMode){
+                storeProgressInDatabase(Constant.totalQuestionsAttempted)
+            }
             Constant.totalQuestionsAttempted = 0
             dialog.dismiss()
             finish()

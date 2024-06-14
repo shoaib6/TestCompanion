@@ -7,17 +7,23 @@ import android.view.View
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testcompanion.databinding.ActivitySectionsBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SectionsActivity : AppCompatActivity() {
     private lateinit var binding: ActivitySectionsBinding
     private lateinit var sectionsAdapter: SectionsAdapter
     private val sectionNames = ArrayList<String>()
+    private lateinit var appDatabase: AppDatabase
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sections)
         binding = ActivitySectionsBinding.inflate(layoutInflater)
         setContentView(binding.root)
         binding.subjectName.text = Constant.Subject
+        appDatabase = Constant.appDatabase
         loadSectionNames()
 
 
@@ -66,6 +72,18 @@ class SectionsActivity : AppCompatActivity() {
         Constant.SectionsName = sectionNames[position]
         val intent = Intent(this,QuizActivity::class.java)
         startActivity(intent)
+    }
+
+    suspend fun getProgress(sectionName: String): Float{
+        return withContext(Dispatchers.IO) {
+           val progress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, sectionName)
+            progress?.questionsAttempted?.toFloat() ?:0.0f
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        binding.sectionsRecyclerview.adapter?.notifyDataSetChanged()
     }
 
 }
