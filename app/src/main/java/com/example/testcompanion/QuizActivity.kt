@@ -1,6 +1,5 @@
 package com.example.testcompanion
 
-import android.animation.ObjectAnimator
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -9,21 +8,13 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.view.KeyEvent
-import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
-import android.widget.Button
-import android.widget.EditText
 import android.widget.LinearLayout
-import android.widget.TextView
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.room.Room
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testcompanion.databinding.ActivityQuizBinding
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firestore.v1.StructuredAggregationQuery.Aggregation.Count
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -47,6 +38,7 @@ class QuizActivity : AppCompatActivity() {
 //        appDatabase = (applicationContext as MainActivity).appDatabase
 
         appDatabase = Constant.appDatabase
+        ss()
 
         if (Constant.isCheckingAnswers){
             binding.tvQuestionNo.text = (Constant.QuestionNo + 1).toString()
@@ -146,15 +138,25 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun storeProgressInDatabase(progress: Int) {
-
+        println("Size Before Inserting:::::::::::::::::::::::"+Constant.selectedOptions.size+":::::::::::::::::::::::::::::")
         GlobalScope.launch {
             val progressEntity = Progress(
                 category = Constant.Category,
                 subcategory = Constant.Subject,
                 section = Constant.SectionsName,
-                questionsAttempted = progress
+                questionsAttempted = progress,
+                selectedOptions = Constant.selectedOptions
             )
-            appDatabase.progressDao().insertProgress(progressEntity)
+            val existingProgress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, Constant.SectionsName)
+            if (existingProgress != null) {
+                // Update the existing entry
+                val updatedProgress = existingProgress.copy(
+                    questionsAttempted = progress,
+                    selectedOptions = Constant.selectedOptions
+                )
+                appDatabase.progressDao().updateQuizProgress(updatedProgress)
+        }else{
+                appDatabase.progressDao().insertProgress(progressEntity)}
         }
 
     }
@@ -210,6 +212,15 @@ class QuizActivity : AppCompatActivity() {
             }
     }
 
+    private fun ss() {
+        GlobalScope.launch {
+            val progress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, Constant.SectionsName)
+            if (progress != null) {
+                println("Size After Inserting:::::::::::::::::::::::"+progress.selectedOptions.size+":::::::::::::::::::::::::::::")
+            }
+        }
+    }
+
     private fun pauseTimer() {
         countDownTimer.cancel()
         isTimerRunning = false
@@ -261,6 +272,7 @@ class QuizActivity : AppCompatActivity() {
             Constant.universalQuiz.clear()
             if (Constant.QuizMode){
                 storeProgressInDatabase(Constant.totalQuestionsAttempted)
+                Constant.selectedOptions.clear()
             }
             Constant.totalQuestionsAttempted = 0
             dialog.dismiss()
@@ -318,7 +330,7 @@ class QuizActivity : AppCompatActivity() {
     override fun onBackPressed() {
 //        super.onBackPressed()
         if (!Constant.isCheckingAnswers){
-            Constant.selectedOptions.clear()
+
         }
         Constant.universalIndex = 0
         if (!Constant.isCheckingAnswers){
