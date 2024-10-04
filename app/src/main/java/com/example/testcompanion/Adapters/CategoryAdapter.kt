@@ -1,4 +1,4 @@
-package com.example.testcompanion
+package com.example.testcompanion.Adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,8 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testcompanion.CategoriesFragment
+import com.example.testcompanion.R
 
 class CategoryAdapter(private val dataSet: List<String>, private val courseImageList: ArrayList<Int>, private val categoriesFragment: CategoriesFragment) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {

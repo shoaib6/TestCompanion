@@ -2,6 +2,8 @@ package com.example.testcompanion
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.testcompanion.Adapters.CheckingAdapter
+import com.example.testcompanion.ConstantVariables.Constant
 import com.example.testcompanion.databinding.ActivityCheckingBinding
 
 class CheckingActivity : AppCompatActivity() {

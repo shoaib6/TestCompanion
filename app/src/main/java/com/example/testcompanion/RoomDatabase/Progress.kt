@@ -1,4 +1,5 @@
-package com.example.testcompanion
+package com.example.testcompanion.RoomDatabase
+import androidx.room.ColumnInfo
 import androidx.room.Entity
 
 @Entity(tableName = "progress", primaryKeys = ["category", "subcategory", "section"])

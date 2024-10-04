@@ -1,6 +1,7 @@
-package com.example.testcompanion
+package com.example.testcompanion.ConstantVariables
 
-import android.graphics.drawable.Drawable
+import com.example.testcompanion.QuizQuestion
+import com.example.testcompanion.RoomDatabase.AppDatabase
 
 class Constant {
     companion object{

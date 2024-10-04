@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testcompanion.Adapters.CategoryAdapter
+import com.example.testcompanion.ConstantVariables.Constant
 
 class CategoriesFragment : Fragment() {
 

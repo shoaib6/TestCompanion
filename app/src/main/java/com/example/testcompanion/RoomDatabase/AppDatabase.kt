@@ -1,4 +1,4 @@
-package com.example.testcompanion
+package com.example.testcompanion.RoomDatabase
 
 import androidx.room.Database
 import androidx.room.RoomDatabase

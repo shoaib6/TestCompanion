@@ -1,4 +1,4 @@
-package com.example.testcompanion
+package com.example.testcompanion.Adapters
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,6 +7,9 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testcompanion.ConstantVariables.Constant
+import com.example.testcompanion.R
+import com.example.testcompanion.SubjectsActivity
 
 class SubjectsAdapter(private val subjectsName: List<String>, private val subjectsImageList: ArrayList<Int>, private val subjectsActivity: SubjectsActivity) :
     RecyclerView.Adapter<SubjectsAdapter.ViewHolder>() {

@@ -1,14 +1,15 @@
-package com.example.testcompanion
+package com.example.testcompanion.Adapters
 
-import android.animation.ObjectAnimator
-import android.graphics.Paint.Style
 import android.graphics.Typeface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testcompanion.ConstantVariables.Constant
+import com.example.testcompanion.QuizActivity
+import com.example.testcompanion.QuizQuestion
+import com.example.testcompanion.R
 
 class QuizAdapter(private val quizQuestions: List<QuizQuestion>, private val quizActivity: QuizActivity) :
     RecyclerView.Adapter<QuizAdapter.ViewHolder>() {

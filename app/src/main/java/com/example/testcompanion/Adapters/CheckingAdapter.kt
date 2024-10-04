@@ -1,10 +1,14 @@
-package com.example.testcompanion
+package com.example.testcompanion.Adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.testcompanion.CheckingActivity
+import com.example.testcompanion.ConstantVariables.Constant
+import com.example.testcompanion.QuizQuestion
+import com.example.testcompanion.R
 
 class CheckingAdapter(private val quizQuestions: List<QuizQuestion>, private val checkingActivity: CheckingActivity) :
     RecyclerView.Adapter<CheckingAdapter.ViewHolder>() {

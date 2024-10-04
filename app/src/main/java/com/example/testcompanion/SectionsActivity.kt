@@ -4,13 +4,13 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.testcompanion.Adapters.SectionsAdapter
+import com.example.testcompanion.ConstantVariables.Constant
+import com.example.testcompanion.RoomDatabase.AppDatabase
 import com.example.testcompanion.databinding.ActivitySectionsBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SectionsActivity : AppCompatActivity() {
@@ -84,6 +84,7 @@ class SectionsActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         binding.sectionsRecyclerview.adapter?.notifyDataSetChanged()
+        Constant.selectedOptions.clear()
     }
 
 }

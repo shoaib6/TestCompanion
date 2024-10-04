@@ -4,6 +4,8 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.GridLayoutManager
+import com.example.testcompanion.Adapters.SubjectsAdapter
+import com.example.testcompanion.ConstantVariables.Constant
 import com.example.testcompanion.databinding.ActivitySubjectsBinding
 
 class SubjectsActivity : AppCompatActivity() {
@@ -40,7 +42,7 @@ class SubjectsActivity : AppCompatActivity() {
 
 
         val layoutManager = GridLayoutManager(this, 2) // Set the number of columns
-        binding.subjectsRecyclerView.addItemDecoration(GridSpacingItemDecoration(this,2,18,true))
+        binding.subjectsRecyclerView.addItemDecoration(GridSpacingItemDecoration(this,2,30,true))
         binding.subjectsRecyclerView.layoutManager = layoutManager
         val adapter = SubjectsAdapter(subjectsName,subjectsImageList,this)
         binding.subjectsRecyclerView.adapter = adapter

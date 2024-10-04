@@ -3,7 +3,6 @@ package com.example.testcompanion
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.widget.Toolbar
@@ -11,6 +10,9 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.room.Room
+import com.example.testcompanion.ConstantVariables.Constant
+import com.example.testcompanion.RoomDatabase.AppDatabase
+import com.example.testcompanion.RoomDatabase.Converters
 import com.example.testcompanion.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
 

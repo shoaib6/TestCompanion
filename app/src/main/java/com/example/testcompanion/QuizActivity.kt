@@ -11,12 +11,17 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.Window
 import android.widget.LinearLayout
-import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
+import com.example.testcompanion.Adapters.QuizAdapter
+import com.example.testcompanion.ConstantVariables.Constant
+import com.example.testcompanion.RoomDatabase.AppDatabase
+import com.example.testcompanion.RoomDatabase.Progress
 import com.example.testcompanion.databinding.ActivityQuizBinding
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class QuizActivity : AppCompatActivity() {
 
@@ -38,7 +43,6 @@ class QuizActivity : AppCompatActivity() {
 //        appDatabase = (applicationContext as MainActivity).appDatabase
 
         appDatabase = Constant.appDatabase
-        ss()
 
         if (Constant.isCheckingAnswers){
             binding.tvQuestionNo.text = (Constant.QuestionNo + 1).toString()
@@ -138,25 +142,16 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun storeProgressInDatabase(progress: Int) {
-        println("Size Before Inserting:::::::::::::::::::::::"+Constant.selectedOptions.size+":::::::::::::::::::::::::::::")
         GlobalScope.launch {
+            println("Size Before Inserting:::::::::::::::::::::::"+ Constant.selectedOptions.size+":::::::::::::::::::::::::::::")
             val progressEntity = Progress(
                 category = Constant.Category,
                 subcategory = Constant.Subject,
                 section = Constant.SectionsName,
                 questionsAttempted = progress,
-                selectedOptions = Constant.selectedOptions
+                selectedOptions = ArrayList(Constant.selectedOptions)
             )
-            val existingProgress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, Constant.SectionsName)
-            if (existingProgress != null) {
-                // Update the existing entry
-                val updatedProgress = existingProgress.copy(
-                    questionsAttempted = progress,
-                    selectedOptions = Constant.selectedOptions
-                )
-                appDatabase.progressDao().updateQuizProgress(updatedProgress)
-        }else{
-                appDatabase.progressDao().insertProgress(progressEntity)}
+                appDatabase.progressDao().insertProgress(progressEntity)
         }
 
     }
@@ -164,7 +159,8 @@ class QuizActivity : AppCompatActivity() {
     private fun loadQuizQuestions() {
         val fireStore = FirebaseFirestore.getInstance()
 //        val quizCollection = fireStore.collection("GAT").document("GAT").collection("Computer Science") // Replace with your collection name
-        val quizCollection = fireStore.collection(Constant.Category).document(Constant.Subject).collection("Sections").document(Constant.SectionsName).collection("MCQs")
+        val quizCollection = fireStore.collection(Constant.Category).document(Constant.Subject).collection("Sections").document(
+            Constant.SectionsName).collection("MCQs")
         quizCollection.get()
             .addOnSuccessListener { querySnapshot ->
                 for (document in querySnapshot.documents) {
@@ -216,7 +212,9 @@ class QuizActivity : AppCompatActivity() {
         GlobalScope.launch {
             val progress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, Constant.SectionsName)
             if (progress != null) {
-                println("Size After Inserting:::::::::::::::::::::::"+progress.selectedOptions.size+":::::::::::::::::::::::::::::")
+                Constant.selectedOptions.addAll(progress.selectedOptions)
+                println("Size in Database:::::::::::::::::::::::"+Constant.selectedOptions.size+":::::::::::::::::::::::::::::")
+                println(Constant.selectedOptions)
             }
         }
     }
@@ -272,7 +270,8 @@ class QuizActivity : AppCompatActivity() {
             Constant.universalQuiz.clear()
             if (Constant.QuizMode){
                 storeProgressInDatabase(Constant.totalQuestionsAttempted)
-                Constant.selectedOptions.clear()
+
+                ss()
             }
             Constant.totalQuestionsAttempted = 0
             dialog.dismiss()
