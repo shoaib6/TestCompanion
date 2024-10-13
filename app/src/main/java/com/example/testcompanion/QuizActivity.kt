@@ -11,6 +11,7 @@ import android.view.KeyEvent
 import android.view.View
 import android.view.Window
 import android.widget.LinearLayout
+import android.widget.Toast
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testcompanion.Adapters.QuizAdapter
 import com.example.testcompanion.ConstantVariables.Constant
@@ -52,10 +53,19 @@ class QuizActivity : AppCompatActivity() {
         }
         dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+        openResumeQuizCustomDialog()
         loadQuizQuestions()
         quizAdapter = QuizAdapter(quizQuestions,this)
         binding.viewPager.adapter = quizAdapter
-
+//        GlobalScope.launch(Dispatchers.IO) {
+//            val p = getProgress("Section 1")
+//            println(":::::::::::::::::::::::::::::::::::::::::::::"+p+":"+quizAdapter.itemCount)
+//            // Switch to the main thread to update the UI
+//            withContext(Dispatchers.Main) {
+//                binding.viewPager.setCurrentItem(p, true)
+//                quizAdapter.notifyItemChanged(p)
+//            }
+//        }
         binding.viewPager.isUserInputEnabled = false
         //
             binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -297,6 +307,40 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
+    private fun openResumeQuizCustomDialog(){
+        dialog.setContentView(R.layout.quiz_resume_custom_dialog)
+        dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        val btnNo =   dialog.findViewById<LinearLayout>(R.id.btnNo)
+        val btnYes = dialog.findViewById<LinearLayout>(R.id.btnYes)
+        dialog.setCancelable(false)
+        dialog.show()
+        btnYes.setOnClickListener {
+            dialog.dismiss()
+            scrollToProgress()
+        }
+        btnNo.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.setOnKeyListener { _, keyCode, _ ->
+            if (keyCode == KeyEvent.KEYCODE_BACK) {
+                // Dismiss the dialog and return true to consume the event
+                dialog.dismiss()
+                true
+            } else {
+                // Return false to allow other key events to be processed
+                false
+            }
+        }
+
+        // Set an OnDismissListener to resume the timer when the dialog is dismissed
+        dialog.setOnDismissListener {
+            if (!Constant.PrepareMode){
+                resumeTimer()
+            }
+        }
+    }
+
     private fun openPrepCompletedDialog(){
         dialog.setContentView(R.layout.prep_completed_dialog)
         dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -318,12 +362,38 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
+    private fun scrollToProgress() {
+        GlobalScope.launch(Dispatchers.IO) {
+            val p = getProgress("Section 1")
+
+            withContext(Dispatchers.Main) {
+                if (p in 0 until quizAdapter.itemCount) {
+                    // Use a small delay to ensure the ViewPager is ready
+                    binding.viewPager.postDelayed({
+                        binding.viewPager.setCurrentItem(p, true) // Smooth scrolling to progress
+                        currentItemPosition = p // Update current item position
+                    }, 500) // Delay of 500ms
+                } else {
+                    println("Progress index out of bounds, p = $p, adapter size: ${quizAdapter.itemCount}")
+                }
+            }
+        }
+    }
+
+
     fun disableButton(){
         binding.btnNext.background = resources.getDrawable(R.drawable.disable_button_design)
     }
 
     fun enableButton(){
         binding.btnNext.background = resources.getDrawable(R.drawable.button_design)
+    }
+
+    suspend fun getProgress(sectionName: String): Int{
+        return withContext(Dispatchers.IO) {
+            val progress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, sectionName)
+            progress?.questionsAttempted?.toInt() ?:0
+        }
     }
 
     override fun onBackPressed() {
