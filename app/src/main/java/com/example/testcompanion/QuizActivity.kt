@@ -35,6 +35,7 @@ class QuizActivity : AppCompatActivity() {
     private var currentItemPosition = 0
     private lateinit var dialog: Dialog
     private lateinit var appDatabase: AppDatabase
+    private var progress: Int = 0
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_quiz)
@@ -53,10 +54,20 @@ class QuizActivity : AppCompatActivity() {
         }
         dialog = Dialog(this)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
-        openResumeQuizCustomDialog()
-        loadQuizQuestions()
         quizAdapter = QuizAdapter(quizQuestions,this)
         binding.viewPager.adapter = quizAdapter
+        GlobalScope.launch(Dispatchers.IO) {
+            progress = getProgress("Section 1")
+            withContext(Dispatchers.Main){
+                if (progress>0){
+                    Toast.makeText(applicationContext, "Progress"+progress, Toast.LENGTH_SHORT).show()
+                    openResumeQuizCustomDialog()
+                } else {
+                    Toast.makeText(applicationContext, "Progress"+progress, Toast.LENGTH_SHORT).show()
+                    loadQuizQuestions()
+                }
+            }
+        }
 //        GlobalScope.launch(Dispatchers.IO) {
 //            val p = getProgress("Section 1")
 //            println(":::::::::::::::::::::::::::::::::::::::::::::"+p+":"+quizAdapter.itemCount)
@@ -193,7 +204,7 @@ class QuizActivity : AppCompatActivity() {
                 binding.shimmerFrameLayout.visibility = View.GONE
                 binding.viewPager.visibility = View.VISIBLE
                 if (!Constant.PrepareMode && !Constant.isCheckingAnswers){
-                    countDownTimer = object : CountDownTimer(60000, 1000){ // 40 minutes in milliseconds
+                    countDownTimer = object : CountDownTimer(10000, 1000){ // 40 minutes in milliseconds
                         override fun onTick(millisUntilFinished: Long) {
                             //remaining time in minutes and milliseconds
                             val minutes = millisUntilFinished / 60000
@@ -316,10 +327,16 @@ class QuizActivity : AppCompatActivity() {
         dialog.show()
         btnYes.setOnClickListener {
             dialog.dismiss()
-            scrollToProgress()
+            GlobalScope.launch(Dispatchers.IO){
+                loadQuizQuestions()
+                withContext(Dispatchers.Main){
+                    scrollToProgress()
+                }
+            }
         }
         btnNo.setOnClickListener {
             dialog.dismiss()
+            loadQuizQuestions()
         }
 
         dialog.setOnKeyListener { _, keyCode, _ ->
@@ -335,7 +352,7 @@ class QuizActivity : AppCompatActivity() {
 
         // Set an OnDismissListener to resume the timer when the dialog is dismissed
         dialog.setOnDismissListener {
-            if (!Constant.PrepareMode){
+            if (!Constant.PrepareMode && timeRemaining>0){
                 resumeTimer()
             }
         }
@@ -363,21 +380,15 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun scrollToProgress() {
-        GlobalScope.launch(Dispatchers.IO) {
-            val p = getProgress("Section 1")
-
-            withContext(Dispatchers.Main) {
-                if (p in 0 until quizAdapter.itemCount) {
+                if (progress in 0 until quizAdapter.itemCount) {
                     // Use a small delay to ensure the ViewPager is ready
                     binding.viewPager.postDelayed({
-                        binding.viewPager.setCurrentItem(p, true) // Smooth scrolling to progress
-                        currentItemPosition = p // Update current item position
+                        binding.viewPager.setCurrentItem(progress, true) // Smooth scrolling to progress
+                        currentItemPosition = progress // Update current item position
                     }, 500) // Delay of 500ms
                 } else {
-                    println("Progress index out of bounds, p = $p, adapter size: ${quizAdapter.itemCount}")
+                    println("Progress index out of bounds, p = $progress, adapter size: ${quizAdapter.itemCount}")
                 }
-            }
-        }
     }
 
 
@@ -422,8 +433,10 @@ class QuizActivity : AppCompatActivity() {
         Constant.universalQuiz.clear()
         Constant.totalQuestionsAttempted = 0
         if (!Constant.PrepareMode && !Constant.isCheckingAnswers){
-            if(timeRemaining>0){
+            if(timeRemaining>=0){
                 countDownTimer.cancel()
+                Constant.remainingTime = "00:00"
+                isTimerRunning = false
             }
         }
     }
