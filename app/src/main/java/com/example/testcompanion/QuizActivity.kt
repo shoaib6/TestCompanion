@@ -12,6 +12,7 @@ import android.view.View
 import android.view.Window
 import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.viewpager2.widget.ViewPager2
 import com.example.testcompanion.Adapters.QuizAdapter
 import com.example.testcompanion.ConstantVariables.Constant
@@ -21,7 +22,9 @@ import com.example.testcompanion.databinding.ActivityQuizBinding
 import com.google.firebase.firestore.FirebaseFirestore
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.tasks.await
 import kotlinx.coroutines.withContext
 
 class QuizActivity : AppCompatActivity() {
@@ -177,13 +180,12 @@ class QuizActivity : AppCompatActivity() {
 
     }
 
-    private fun loadQuizQuestions() {
+    private suspend fun loadQuizQuestions() = withContext(Dispatchers.IO) {
         val fireStore = FirebaseFirestore.getInstance()
 //        val quizCollection = fireStore.collection("GAT").document("GAT").collection("Computer Science") // Replace with your collection name
         val quizCollection = fireStore.collection(Constant.Category).document(Constant.Subject).collection("Sections").document(
             Constant.SectionsName).collection("MCQs")
-        quizCollection.get()
-            .addOnSuccessListener { querySnapshot ->
+        val querySnapshot = quizCollection.get().await()
                 for (document in querySnapshot.documents) {
                     val question = document.getString("Question") ?: ""
                     val options = listOf(
@@ -198,7 +200,7 @@ class QuizActivity : AppCompatActivity() {
                     quizQuestions.add(quizQuestion)
                     Constant.universalQuiz.add(quizQuestion)
                 }
-
+        withContext(Dispatchers.Main){
                 // Notify the adapter that data has changed
                 quizAdapter.notifyDataSetChanged()
                 binding.shimmerFrameLayout.visibility = View.GONE
@@ -222,11 +224,8 @@ class QuizActivity : AppCompatActivity() {
 
                     }.start()
                     isTimerRunning = true
-                }
             }
-            .addOnFailureListener { exception ->
-                // Handle errors here
-            }
+        }
     }
 
     private fun ss() {
@@ -326,17 +325,19 @@ class QuizActivity : AppCompatActivity() {
         dialog.setCancelable(false)
         dialog.show()
         btnYes.setOnClickListener {
-            dialog.dismiss()
-            GlobalScope.launch(Dispatchers.IO){
+            lifecycleScope.launch(Dispatchers.Main){
                 loadQuizQuestions()
-                withContext(Dispatchers.Main){
-                    scrollToProgress()
-                }
+                delay(100)
+                scrollToProgress()
             }
+            dialog.show()
+            dialog.dismiss()
         }
         btnNo.setOnClickListener {
             dialog.dismiss()
-            loadQuizQuestions()
+            lifecycleScope.launch {
+                loadQuizQuestions()
+            }
         }
 
         dialog.setOnKeyListener { _, keyCode, _ ->
@@ -381,13 +382,10 @@ class QuizActivity : AppCompatActivity() {
 
     private fun scrollToProgress() {
                 if (progress in 0 until quizAdapter.itemCount) {
-                    // Use a small delay to ensure the ViewPager is ready
-                    binding.viewPager.postDelayed({
                         binding.viewPager.setCurrentItem(progress, true) // Smooth scrolling to progress
                         currentItemPosition = progress // Update current item position
-                    }, 500) // Delay of 500ms
                 } else {
-                    println("Progress index out of bounds, p = $progress, adapter size: ${quizAdapter.itemCount}")
+                    println(":::::::::::::::::::::::::Index out of bounds, p = $progress, adapter size: ${quizAdapter.itemCount}")
                 }
     }
 
