@@ -142,6 +142,7 @@ class QuizActivity : AppCompatActivity() {
                     binding.btnBack.visibility = View.VISIBLE
                 }
                 quizAdapter.notifyItemChanged(Constant.universalIndex)
+                Toast.makeText(applicationContext,"Adapter Refreshed",Toast.LENGTH_SHORT).show()
             }else{
 
             }
@@ -289,6 +290,7 @@ class QuizActivity : AppCompatActivity() {
         btnExit.setOnClickListener {
             Constant.universalQuiz.clear()
             if (Constant.QuizMode){
+                Constant.totalQuestionsAttempted+1
                 storeProgressInDatabase(Constant.totalQuestionsAttempted)
 
                 ss()
@@ -327,7 +329,7 @@ class QuizActivity : AppCompatActivity() {
         btnYes.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main){
                 loadQuizQuestions()
-                delay(100)
+                delay(10)
                 scrollToProgress()
             }
             dialog.show()
@@ -384,6 +386,7 @@ class QuizActivity : AppCompatActivity() {
                 if (progress in 0 until quizAdapter.itemCount) {
                         binding.viewPager.setCurrentItem(progress, true) // Smooth scrolling to progress
                         currentItemPosition = progress // Update current item position
+                    Constant.totalQuestionsAttempted = progress
                 } else {
                     println(":::::::::::::::::::::::::Index out of bounds, p = $progress, adapter size: ${quizAdapter.itemCount}")
                 }
