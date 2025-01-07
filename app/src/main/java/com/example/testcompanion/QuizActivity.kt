@@ -50,7 +50,7 @@ class QuizActivity : AppCompatActivity() {
         appDatabase = Constant.appDatabase
 
         if (Constant.isCheckingAnswers){
-            binding.tvQuestionNo.text = (Constant.QuestionNo + 1).toString()
+            binding.tvQuestionNo.text = ("Q:${Constant.QuestionNo + 1}/20").toString()
         }
         if (!Constant.PrepareMode){
             disableButton()
@@ -62,7 +62,7 @@ class QuizActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.IO) {
             progress = getProgress("Section 1")
             withContext(Dispatchers.Main){
-                if (progress>0){
+                if (progress>0 && !Constant.isCheckingAnswers){
                     Toast.makeText(applicationContext, "Progress"+progress, Toast.LENGTH_SHORT).show()
                     openResumeQuizCustomDialog()
                 } else {
@@ -87,7 +87,7 @@ class QuizActivity : AppCompatActivity() {
                     super.onPageSelected(position)
                     Constant.universalIndex = position
                     if (!Constant.isCheckingAnswers){
-                        binding.tvQuestionNo.text = (position+1).toString()
+                        binding.tvQuestionNo.text = ("Q:${position+1}/20").toString()
                     }
                     Constant.attempted = false
                     if (!Constant.PrepareMode){
@@ -328,6 +328,7 @@ class QuizActivity : AppCompatActivity() {
         dialog.show()
         btnYes.setOnClickListener {
             lifecycleScope.launch(Dispatchers.Main){
+                ss()
                 loadQuizQuestions()
                 delay(10)
                 scrollToProgress()
