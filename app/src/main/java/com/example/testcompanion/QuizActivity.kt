@@ -1,5 +1,4 @@
 package com.example.testcompanion
-
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
@@ -50,7 +49,8 @@ class QuizActivity : AppCompatActivity() {
         appDatabase = Constant.appDatabase
 
         if (Constant.isCheckingAnswers){
-            binding.tvQuestionNo.text = ("Q:${Constant.QuestionNo + 1}/20").toString()
+            binding.shimmerFrameLayout.visibility = View.GONE
+            binding.tvQuestionNo.text = ("Q:${Constant.QuestionNo + 1}/${Constant.totalQuestions}").toString()
         }
         if (!Constant.PrepareMode){
             disableButton()
@@ -59,35 +59,26 @@ class QuizActivity : AppCompatActivity() {
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
         quizAdapter = QuizAdapter(quizQuestions,this)
         binding.viewPager.adapter = quizAdapter
-        GlobalScope.launch(Dispatchers.IO) {
+        lifecycleScope.launch(Dispatchers.IO) {
             progress = getProgress("Section 1")
             withContext(Dispatchers.Main){
                 if (progress>0 && !Constant.isCheckingAnswers){
-                    Toast.makeText(applicationContext, "Progress"+progress, Toast.LENGTH_SHORT).show()
                     openResumeQuizCustomDialog()
                 } else {
-                    Toast.makeText(applicationContext, "Progress"+progress, Toast.LENGTH_SHORT).show()
                     loadQuizQuestions()
                 }
             }
         }
-//        GlobalScope.launch(Dispatchers.IO) {
-//            val p = getProgress("Section 1")
-//            println(":::::::::::::::::::::::::::::::::::::::::::::"+p+":"+quizAdapter.itemCount)
-//            // Switch to the main thread to update the UI
-//            withContext(Dispatchers.Main) {
-//                binding.viewPager.setCurrentItem(p, true)
-//                quizAdapter.notifyItemChanged(p)
-//            }
-//        }
+//
         binding.viewPager.isUserInputEnabled = false
-        //
+
             binding.viewPager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
                     Constant.universalIndex = position
                     if (!Constant.isCheckingAnswers){
-                        binding.tvQuestionNo.text = ("Q:${position+1}/20").toString()
+                        binding.tvQuestionNo.text = ("Q:${position+1}/${quizQuestions.size}").toString()
+                        Constant.totalQuestions = quizQuestions.size
                     }
                     Constant.attempted = false
                     if (!Constant.PrepareMode){
@@ -95,10 +86,11 @@ class QuizActivity : AppCompatActivity() {
                     }
                 }
             })
+
         if (Constant.isCheckingAnswers){
             binding.viewPager.setCurrentItem(Constant.checkingQuestion, true)
         }
-        //
+
         binding.btnNext.setOnClickListener {
             if (Constant.attempted && !Constant.PrepareMode){
                 val nextItemPosition = currentItemPosition + 1
@@ -111,9 +103,6 @@ class QuizActivity : AppCompatActivity() {
                     currentItemPosition = nextItemPosition
                 }else{
                     countDownTimer.cancel()
-
-//                    storeProgressInDatabase(Constant.totalQuestionsAttempted)
-
                     val intent = Intent(this,AnswerSheet::class.java)
                     startActivity(intent)
                 }
@@ -132,9 +121,6 @@ class QuizActivity : AppCompatActivity() {
                     binding.viewPager.setCurrentItem(nextItemPosition, true) // true for smooth scrolling
                     currentItemPosition = nextItemPosition
                 }else{
-//                    countDownTimer.cancel()
-//                    val intent = Intent(this,AnswerSheet::class.java)
-//                    startActivity(intent)
                     openPrepCompletedDialog()
                 }
                 Constant.flag = false
@@ -142,7 +128,6 @@ class QuizActivity : AppCompatActivity() {
                     binding.btnBack.visibility = View.VISIBLE
                 }
                 quizAdapter.notifyItemChanged(Constant.universalIndex)
-                Toast.makeText(applicationContext,"Adapter Refreshed",Toast.LENGTH_SHORT).show()
             }else{
 
             }
@@ -167,23 +152,21 @@ class QuizActivity : AppCompatActivity() {
     }
 
     private fun storeProgressInDatabase(progress: Int) {
-        GlobalScope.launch {
-            println("Size Before Inserting:::::::::::::::::::::::"+ Constant.selectedOptions.size+":::::::::::::::::::::::::::::")
+        lifecycleScope.launch(Dispatchers.IO) {
             val progressEntity = Progress(
                 category = Constant.Category,
                 subcategory = Constant.Subject,
                 section = Constant.SectionsName,
                 questionsAttempted = progress,
-                selectedOptions = ArrayList(Constant.selectedOptions)
+                selectedOptions = ArrayList(Constant.selectedOptions),
+                timeRemaining = timeRemaining
             )
                 appDatabase.progressDao().insertProgress(progressEntity)
         }
-
     }
 
     private suspend fun loadQuizQuestions() = withContext(Dispatchers.IO) {
         val fireStore = FirebaseFirestore.getInstance()
-//        val quizCollection = fireStore.collection("GAT").document("GAT").collection("Computer Science") // Replace with your collection name
         val quizCollection = fireStore.collection(Constant.Category).document(Constant.Subject).collection("Sections").document(
             Constant.SectionsName).collection("MCQs")
         val querySnapshot = quizCollection.get().await()
@@ -206,7 +189,7 @@ class QuizActivity : AppCompatActivity() {
                 quizAdapter.notifyDataSetChanged()
                 binding.shimmerFrameLayout.visibility = View.GONE
                 binding.viewPager.visibility = View.VISIBLE
-                if (!Constant.PrepareMode && !Constant.isCheckingAnswers){
+                if (!Constant.PrepareMode && !Constant.isCheckingAnswers && !isTimerRunning){
                     countDownTimer = object : CountDownTimer(10000, 1000){ // 40 minutes in milliseconds
                         override fun onTick(millisUntilFinished: Long) {
                             //remaining time in minutes and milliseconds
@@ -229,8 +212,8 @@ class QuizActivity : AppCompatActivity() {
         }
     }
 
-    private fun ss() {
-        GlobalScope.launch {
+    private fun fetchArrayFromDatabse() {
+        lifecycleScope.launch(Dispatchers.IO) {
             val progress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, Constant.SectionsName)
             if (progress != null) {
                 Constant.selectedOptions.addAll(progress.selectedOptions)
@@ -292,8 +275,7 @@ class QuizActivity : AppCompatActivity() {
             if (Constant.QuizMode){
                 Constant.totalQuestionsAttempted+1
                 storeProgressInDatabase(Constant.totalQuestionsAttempted)
-
-                ss()
+                fetchArrayFromDatabse()
             }
             Constant.totalQuestionsAttempted = 0
             dialog.dismiss()
@@ -327,8 +309,14 @@ class QuizActivity : AppCompatActivity() {
         dialog.setCancelable(false)
         dialog.show()
         btnYes.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.IO){
+                val progress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, Constant.SectionsName)
+                timeRemaining = 0
+                timeRemaining = progress?.timeRemaining!!
+            }
             lifecycleScope.launch(Dispatchers.Main){
-                ss()
+                resumeTimer()
+                fetchArrayFromDatabse()
                 loadQuizQuestions()
                 delay(10)
                 scrollToProgress()
@@ -356,7 +344,7 @@ class QuizActivity : AppCompatActivity() {
 
         // Set an OnDismissListener to resume the timer when the dialog is dismissed
         dialog.setOnDismissListener {
-            if (!Constant.PrepareMode && timeRemaining>0){
+            if (!Constant.PrepareMode && timeRemaining>0 && Constant.totalQuestionsAttempted!=quizQuestions.size){
                 resumeTimer()
             }
         }
@@ -402,7 +390,7 @@ class QuizActivity : AppCompatActivity() {
         binding.btnNext.background = resources.getDrawable(R.drawable.button_design)
     }
 
-    suspend fun getProgress(sectionName: String): Int{
+    private suspend fun getProgress(sectionName: String): Int{
         return withContext(Dispatchers.IO) {
             val progress = appDatabase.progressDao().getProgress(Constant.Category, Constant.Subject, sectionName)
             progress?.questionsAttempted?.toInt() ?:0

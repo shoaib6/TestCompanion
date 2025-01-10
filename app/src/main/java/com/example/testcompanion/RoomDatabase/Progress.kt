@@ -8,5 +8,6 @@ data class Progress(
     val subcategory: String,
     val section: String,
     val questionsAttempted: Int,
-    val selectedOptions: ArrayList<Int>
+    val selectedOptions: ArrayList<Int>,
+    val timeRemaining: Long
 )
