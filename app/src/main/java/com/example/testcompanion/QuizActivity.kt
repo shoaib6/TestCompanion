@@ -62,7 +62,7 @@ class QuizActivity : AppCompatActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             progress = getProgress("Section 1")
             withContext(Dispatchers.Main){
-                if (progress>0 && !Constant.isCheckingAnswers){
+                if (progress>0 && !Constant.isCheckingAnswers && !Constant.PrepareMode){
                     openResumeQuizCustomDialog()
                 } else {
                     loadQuizQuestions()

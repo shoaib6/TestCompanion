@@ -22,6 +22,10 @@ class AnswerSheet : AppCompatActivity() {
         binding.answerSheetRecyclerview.layoutManager = layoutManager
         binding.answerSheetRecyclerview.adapter = answerSheetAdapter
         binding.remainingTimetextView.text = Constant.remainingTime
+        binding.btnNext.setOnClickListener {
+            val intent = Intent(this,ResultActivity::class.java)
+            startActivity(intent)
+        }
 
 
     }
