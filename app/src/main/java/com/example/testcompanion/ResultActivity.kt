@@ -4,6 +4,9 @@ import android.graphics.Color
 import android.graphics.Typeface
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
+import com.example.testcompanion.ConstantVariables.Constant
+import com.example.testcompanion.ExtraClasses.IntegerPercentFormatter
 import com.example.testcompanion.databinding.ActivityResultBinding
 import com.github.mikephil.charting.animation.Easing
 import com.github.mikephil.charting.data.PieData
@@ -55,9 +58,8 @@ class ResultActivity : AppCompatActivity() {
         // on below line we are creating array list and
         // adding data to it to display in pie chart
         val entries: ArrayList<PieEntry> = ArrayList()
-        entries.add(PieEntry(70f))
-        entries.add(PieEntry(20f))
-        entries.add(PieEntry(10f))
+        entries.add(PieEntry(Constant.totalCorrectAnswers.toFloat()))
+        entries.add(PieEntry(Constant.totalWrongAnswers.toFloat()))
 
         // on below line we are setting pie data set
         val dataSet = PieDataSet(entries, "Mobile OS")
@@ -73,7 +75,6 @@ class ResultActivity : AppCompatActivity() {
         // add a lot of colors to list
         val colors: ArrayList<Int> = ArrayList()
         colors.add(resources.getColor(R.color.green))
-        colors.add(resources.getColor(R.color.blue))
         colors.add(resources.getColor(R.color.red))
 
         // on below line we are setting colors.
@@ -81,7 +82,7 @@ class ResultActivity : AppCompatActivity() {
 
         // on below line we are setting pie data set
         val data = PieData(dataSet)
-        data.setValueFormatter(PercentFormatter())
+        data.setValueFormatter(IntegerPercentFormatter())
         data.setValueTextSize(15f)
         data.setValueTypeface(Typeface.DEFAULT_BOLD)
         data.setValueTextColor(Color.WHITE)
@@ -92,6 +93,8 @@ class ResultActivity : AppCompatActivity() {
 
         // loading chart
         binding.pieChart.invalidate()
+        Toast.makeText(this,"Correct Answers${Constant.totalCorrectAnswers.toFloat()}",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this,"Wrong Answers${Constant.totalWrongAnswers.toFloat()}",Toast.LENGTH_SHORT).show()
 
 
 

@@ -22,6 +22,8 @@ class Constant {
         var isCheckingAnswers = false
         var QuestionNo = 0
         var totalQuestions = 0
+        var totalCorrectAnswers = 0
+        var totalWrongAnswers = 0
         lateinit var appDatabase: AppDatabase
 
     }

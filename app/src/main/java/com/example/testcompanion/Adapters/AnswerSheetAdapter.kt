@@ -26,8 +26,10 @@ class AnswerSheetAdapter(private val answerSheet: AnswerSheet) : RecyclerView.Ad
         val quizQuestion = Constant.universalQuiz[position]
         if (Constant.selectedOptions[position]==quizQuestion.answer.toInt()){
             holder.answerBox.background = answerSheet.resources.getDrawable(R.drawable.correct_result_box_design)
+            Constant.totalCorrectAnswers++
         }else{
             holder.answerBox.background = answerSheet.resources.getDrawable(R.drawable.wrong_result_box_design)
+            Constant.totalWrongAnswers++
         }
         //
         holder.answerBox.setOnClickListener {
