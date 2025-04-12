@@ -9,9 +9,9 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/topLayout"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="@dimen/_250sdp"
         android:background="@drawable/layout_background_design2"
-        android:gravity="center"
+        android:gravity="center_horizontal"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,7 +20,8 @@
         <com.github.mikephil.charting.charts.PieChart
             android:id="@+id/pieChart"
             android:layout_width="@dimen/_150sdp"
-            android:layout_height="@dimen/_150sdp"/>
+            android:layout_height="@dimen/_150sdp"
+            android:layout_marginTop="@dimen/_20sdp"/>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -28,24 +29,245 @@
         android:id="@+id/bottomLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:orientation="vertical"
+        android:background="@color/clipboard_color"
         app:layout_constraintTop_toBottomOf="@+id/topLayout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_90sdp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center"
+                android:elevation="@dimen/_1sdp"
+                android:background="@drawable/layout_background_design4">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/restart_icon"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_5sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Again"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:gravity="center"
+                    android:elevation="@dimen/_1sdp"
+                    android:background="@drawable/layout_background_design4">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/review_answers_icon"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_5sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Review Answers"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:gravity="center"
+                    android:elevation="@dimen/_1sdp"
+                    android:background="@drawable/layout_background_design4">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/share_answer_icon"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_5sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Share"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:gravity="center"
+                    android:elevation="@dimen/_1sdp"
+                    android:background="@drawable/layout_background_design4">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/pdf_icon"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_5sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="PDF"/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
+                    android:gravity="center"
+                    android:elevation="@dimen/_1sdp"
+                    android:background="@drawable/layout_background_design4">
+
+                    <ImageView
+                        android:layout_width="@dimen/_20sdp"
+                        android:layout_height="@dimen/_20sdp"
+                        android:src="@drawable/home_icon"/>
+
+                </androidx.appcompat.widget.LinearLayoutCompat>
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_5sdp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="   Go To Home   "/>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:gravity="center"
+                android:background="@drawable/layout_background_design4">
+
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:src="@drawable/share_answer_icon"/>
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1"/>
+
+        </androidx.appcompat.widget.LinearLayoutCompat>
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="@dimen/_280sdp"
         android:layout_height="@dimen/_120sdp"
-        android:padding="@dimen/_20sdp"
-        android:orientation="vertical"
+        android:layout_marginTop="@dimen/_190sdp"
         android:background="@drawable/layout_background_design3"
-        app:layout_constraintStart_toStartOf="parent"
+        android:elevation="@dimen/_1sdp"
+        android:orientation="vertical"
+        android:padding="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -60,11 +282,11 @@
                 <View
                     android:layout_width="@dimen/_10sdp"
                     android:layout_height="@dimen/_10sdp"
-                    android:background="@drawable/point_design_1"/>
+                    android:background="@drawable/point_design_1" />
 
                 <View
                     android:layout_width="@dimen/_5sdp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -75,12 +297,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="100%"
-                        android:textColor="@color/dark_purple"/>
+                        android:textColor="@color/dark_purple" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Completion"/>
+                        android:text="Completion" />
 
                 </LinearLayout>
 
@@ -90,7 +312,7 @@
             <View
                 android:layout_width="0dp"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -100,11 +322,11 @@
                 <View
                     android:layout_width="@dimen/_10sdp"
                     android:layout_height="@dimen/_10sdp"
-                    android:background="@drawable/point_design_1"/>
+                    android:background="@drawable/point_design_1" />
 
                 <View
                     android:layout_width="@dimen/_5sdp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -115,12 +337,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="20"
-                        android:textColor="@color/dark_purple"/>
+                        android:textColor="@color/dark_purple" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Total Questions"/>
+                        android:text="Total Questions" />
 
                 </LinearLayout>
 
@@ -132,7 +354,7 @@
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_weight="1"/>
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -147,11 +369,11 @@
                 <View
                     android:layout_width="@dimen/_10sdp"
                     android:layout_height="@dimen/_10sdp"
-                    android:background="@drawable/point_design_2"/>
+                    android:background="@drawable/point_design_2" />
 
                 <View
                     android:layout_width="@dimen/_5sdp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -162,12 +384,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="13"
-                        android:textColor="@color/green"/>
+                        android:textColor="@color/green" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Correct"/>
+                        android:text="Correct" />
 
                 </LinearLayout>
 
@@ -177,7 +399,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"/>
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -187,11 +409,11 @@
                 <View
                     android:layout_width="@dimen/_10sdp"
                     android:layout_height="@dimen/_10sdp"
-                    android:background="@drawable/point_design_3"/>
+                    android:background="@drawable/point_design_3" />
 
                 <View
                     android:layout_width="@dimen/_5sdp"
-                    android:layout_height="0dp"/>
+                    android:layout_height="0dp" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -202,12 +424,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="07"
-                        android:textColor="@color/red"/>
+                        android:textColor="@color/red" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Wrong              "/>
+                        android:text="Wrong              " />
 
                 </LinearLayout>
 

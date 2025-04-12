@@ -7,7 +7,7 @@
     <color name="dark_purple">#6a5ae0</color>
     <color name="lite_purple">#5b4dc3</color>
     <color name="clipboard_color">#F5F5F5</color>
-    <color name="card_color">#EBF5F5F5</color>
+    <color name="card_color">#FAECE8E8</color>
     <color name="selected_button_color">#9087E5</color>
     <color name="lite_black">#49454F</color>
     <color name="red">#FF5353</color>
@@ -15,4 +15,5 @@
     <color name="lite_green">#C8E6CA</color>
     <color name="lite_red">#FFCDD2</color>
     <color name="shimmer_color">#C2C2C2</color>
+    <color name="cornflowerBlue">#6495ED</color>
 </resources>
