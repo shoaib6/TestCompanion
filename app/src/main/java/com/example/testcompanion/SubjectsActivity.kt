@@ -29,7 +29,7 @@ class SubjectsActivity : AppCompatActivity() {
         subjectsImageList.add(R.drawable.islamic_icon)
         subjectsImageList.add(R.drawable.geography_icon)
         subjectsImageList.add(R.drawable.current_affairs_icon)
-        subjectsName.add("General Knowledge")
+        subjectsName.add("Gen Knowledge")
         subjectsName.add("Computer Science")
         subjectsName.add("Physics")
         subjectsName.add("Chemistry")
