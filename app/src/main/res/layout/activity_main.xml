@@ -199,11 +199,13 @@
 
 <!--            </LinearLayout>-->
 
-            <FrameLayout
-                android:id="@+id/fragmentContainer"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/_14sdp"/>
+                android:layout_marginTop="@dimen/_10sdp"
+                android:overScrollMode="never"/>
+
         </LinearLayout>
 
     </LinearLayout>

@@ -17,4 +17,7 @@ interface ProgressDao {
     @Update
     suspend fun updateQuizProgress(progress: Progress)
 
+    @Query("SELECT section, accuracy FROM progress WHERE category = :category AND subcategory = :subcategory")
+    suspend fun getSectionAccuracies(category: String, subcategory: String): List<SectionAccuracy>
+
 }

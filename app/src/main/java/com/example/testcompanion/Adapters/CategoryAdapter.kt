@@ -7,10 +7,10 @@ import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.testcompanion.CategoriesFragment
+import com.example.testcompanion.MainActivity
 import com.example.testcompanion.R
 
-class CategoryAdapter(private val dataSet: List<String>, private val courseImageList: ArrayList<Int>, private val categoriesFragment: CategoriesFragment) :
+class CategoryAdapter(private val dataSet: List<String>, private val courseImageList: ArrayList<Int>, private val mainActivity: MainActivity) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -29,7 +29,7 @@ class CategoryAdapter(private val dataSet: List<String>, private val courseImage
         holder.textView.text = dataSet[position]
         holder.courseImage.setImageResource(courseImageList[position])
         holder.categoryCard.setOnClickListener {
-            categoriesFragment.goToTestActivity(dataSet[position])
+            mainActivity.goToTestActivity(dataSet[position])
         }
     }
 

@@ -9,5 +9,6 @@ data class Progress(
     val section: String,
     val questionsAttempted: Int,
     val selectedOptions: ArrayList<Int>,
-    val timeRemaining: Long
+    val timeRemaining: Long,
+    val accuracy: Float
 )

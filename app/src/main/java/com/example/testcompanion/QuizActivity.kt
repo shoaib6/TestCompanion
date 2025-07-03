@@ -159,7 +159,8 @@ class QuizActivity : AppCompatActivity() {
                 section = Constant.SectionsName,
                 questionsAttempted = progress,
                 selectedOptions = ArrayList(Constant.selectedOptions),
-                timeRemaining = timeRemaining
+                timeRemaining = timeRemaining,
+                accuracy = 0F
             )
                 appDatabase.progressDao().insertProgress(progressEntity)
         }

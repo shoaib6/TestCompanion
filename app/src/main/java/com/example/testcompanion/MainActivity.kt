@@ -1,5 +1,6 @@
 package com.example.testcompanion
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
@@ -9,7 +10,9 @@ import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.room.Room
+import com.example.testcompanion.Adapters.CategoryAdapter
 import com.example.testcompanion.ConstantVariables.Constant
 import com.example.testcompanion.RoomDatabase.AppDatabase
 import com.example.testcompanion.RoomDatabase.Converters
@@ -34,11 +37,6 @@ class MainActivity : AppCompatActivity() {
         ).build()
         Constant.appDatabase = appDatabase
 
-        val initialFragment: Fragment = CategoriesFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, initialFragment)
-            .commit()
-
         drawerLayout= findViewById(R.id.drawerLayout)
         val customHamburgerIcon: ImageView = findViewById(R.id.customHamburgerIcon)
 
@@ -49,6 +47,24 @@ class MainActivity : AppCompatActivity() {
             R.string.open,
             R.string.close
         )
+
+        val layoutManager = LinearLayoutManager(this)
+        binding.recyclerView.layoutManager = layoutManager
+        val categoryName = ArrayList<String>()
+        val courseImageList = ArrayList<Int>()
+        courseImageList.add(R.drawable.gat_icon)
+        courseImageList.add(R.drawable.nat_icon)
+        courseImageList.add(R.drawable.ppsc_icon)
+        courseImageList.add(R.drawable.mdcat_icon)
+        courseImageList.add(R.drawable.psa_icon)
+        categoryName.add("GAT")
+        categoryName.add("NTS")
+        categoryName.add("PPSC")
+        categoryName.add("MDCAT")
+        categoryName.add("PSA")
+        val adapter = CategoryAdapter(categoryName,courseImageList,this)
+        binding.recyclerView.adapter = adapter
+
         drawerLayout.addDrawerListener(actionBarDrawerToggle)
         actionBarDrawerToggle.syncState()
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -73,6 +89,12 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    fun goToTestActivity(categoryName: String) {
+        Constant.Category = categoryName
+        val intent = Intent(this,SubjectsActivity::class.java)
+        startActivity(intent)
+    }
+
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (actionBarDrawerToggle.onOptionsItemSelected(item)) {
             return true
@@ -87,7 +109,5 @@ class MainActivity : AppCompatActivity() {
             super.onBackPressed()
         }
     }
-
-
 
 }
