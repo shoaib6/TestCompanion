@@ -10,8 +10,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.testcompanion.MainActivity
 import com.example.testcompanion.R
 
-class CategoryAdapter(private val dataSet: List<String>, private val courseImageList: ArrayList<Int>, private val mainActivity: MainActivity) :
+class CategoryAdapter(private val originalList: List<String>, private val courseImageList: ArrayList<Int>, private val mainActivity: MainActivity) :
     RecyclerView.Adapter<CategoryAdapter.ViewHolder>() {
+
+    private var filteredList: List<String> = originalList.toList()
+
 
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val textView: TextView = view.findViewById(R.id.courseName)
@@ -26,15 +29,26 @@ class CategoryAdapter(private val dataSet: List<String>, private val courseImage
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.textView.text = dataSet[position]
+        holder.textView.text = filteredList[position]
         holder.courseImage.setImageResource(courseImageList[position])
         holder.categoryCard.setOnClickListener {
-            mainActivity.goToTestActivity(dataSet[position])
+            mainActivity.goToTestActivity(filteredList[position])
         }
     }
 
     override fun getItemCount(): Int {
-        return dataSet.size
+        return filteredList.size
+    }
+
+    fun filter(query: String) {
+        filteredList = if (query.isEmpty()) {
+            originalList
+        } else {
+            originalList.filter {
+                it.contains(query, ignoreCase = true)
+            }
+        }
+        notifyDataSetChanged()
     }
 
 }

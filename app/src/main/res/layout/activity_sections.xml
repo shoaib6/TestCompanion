@@ -51,6 +51,24 @@
 
         </com.facebook.shimmer.ShimmerFrameLayout>
 
+        <androidx.cardview.widget.CardView
+            android:id="@+id/noDataAvailable"
+            android:layout_width="@dimen/_250sdp"
+            android:layout_height="@dimen/_250sdp"
+            android:layout_marginTop="@dimen/_65sdp"
+            app:cardCornerRadius="@dimen/_20sdp"
+            app:cardElevation="@dimen/_1sdp"
+            android:layout_gravity="center"
+            android:visibility="gone">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="@dimen/_300sdp"
+                android:layout_height="@dimen/_300sdp"
+                android:layout_gravity="center"
+                android:background="@drawable/no_data_available"/>
+
+        </androidx.cardview.widget.CardView>
+
     </LinearLayout>
 
 </LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import androidx.recyclerview.widget.GridLayoutManager
 import com.example.testcompanion.Adapters.SectionsAdapter
 import com.example.testcompanion.ConstantVariables.Constant
@@ -32,12 +33,22 @@ class SectionsActivity : AppCompatActivity() {
     private fun loadSectionNames() {
         val db = FirebaseFirestore.getInstance()
         val sectionsCollectionRef = db.collection(Constant.Category)
-            .document("General Knowledge")
+            .document(binding.subjectName.text.toString())
             .collection("Sections")
 
 // Query the "Sections" subcollection
         sectionsCollectionRef.get()
             .addOnSuccessListener { querySnapshot ->
+
+                if (querySnapshot.isEmpty) {
+                    // 🚫 No sections found
+                    binding.shimmerFrameLayout.visibility = View.GONE
+                    binding.sectionsRecyclerview.visibility = View.GONE
+//                    Toast.makeText(this, "No sections found for this subject.", Toast.LENGTH_SHORT).show()
+                    binding.noDataAvailable.visibility = View.VISIBLE
+                    return@addOnSuccessListener
+                }
+
                 for (document in querySnapshot.documents) {
                     // Get the name of each section document
                     val sectionName = document.id
@@ -50,15 +61,6 @@ class SectionsActivity : AppCompatActivity() {
                     binding.sectionsRecyclerview.adapter = sectionsAdapter
                     binding.shimmerFrameLayout.visibility = View.GONE
                     binding.sectionsRecyclerview.visibility = View.VISIBLE
-                }
-
-                // After adding all section names, you can use the list for your RecyclerView
-                // For example, if you have a RecyclerView adapter:
-                // recyclerView.adapter = YourAdapter(sectionNames)
-
-                // Alternatively, you can process the list here
-                for (sectionName in sectionNames) {
-
                 }
             }
             .addOnFailureListener { exception ->
